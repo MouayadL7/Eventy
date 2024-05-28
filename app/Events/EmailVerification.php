@@ -15,13 +15,13 @@ class EmailVerification
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $email;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct($email)
     {
-        $this->user = $user;
+        $this->email = $email;
     }
 
     /**

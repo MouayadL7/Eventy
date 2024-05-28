@@ -11,10 +11,10 @@ class DeviceToken extends Model
      use HasFactory;
 
      protected $fillable = [
-          //'user_id',
-         // 'device_token',
+          'user_id',
+          'device_token',
      ];
-
+     
      public function user() : BelongsTo
      {
           return $this->belongsTo(User::class);

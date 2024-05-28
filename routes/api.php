@@ -8,11 +8,10 @@ use App\Http\Controllers\{
     Auth\LoginController,
     Auth\LogoutController,
     Auth\RegisterController,
-    
-    
+    Auth\EmailVerificationController,
+    Auth\ResetPasswordController,
 };
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\Payment\BudgetController;
 use App\Models\service;
 
 /*
@@ -27,11 +26,13 @@ use App\Models\service;
 */
 
 
-//register 
+//register
 Route::post('/register', [RegisterController::class, 'register']);
 
 //EmailVerification
 Route::post('user/email/check',[EmailVerificationController::class,'userCheckCode']);
+Route::post('resendCode',[EmailVerificationController::class,'resendCode']);
+
 
 //login
 Route::post('/login', [LoginController::class, 'login']);
@@ -41,9 +42,12 @@ Route::post('user/password/email',[ResetPasswordController::class,'userForgotPas
 Route::post('user/password/check', [ResetPasswordController::class, 'userCheckCode']);
 Route::post('user/password/reset',[ResetPasswordController::class,'userResetPassword']);
 
+//logout
 Route::middleware('auth:sanctum')->group (function(){
-    Route::get('/logout', [LogoutController::class, 'logout']);
-    
+    Route::post('/logout', [LogoutController::class, 'logout']);
+
+
+
 Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
     Route::post('/services/add', [serviceController::class, 'addservice'])->name('services.add');
     Route::get('/allservice', [Servicecontroller::class, 'getallservices']);
@@ -51,9 +55,21 @@ Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
 
     });
 
+    // Budget routes
+    Route::prefix('budget')->group(function () {
+        Route::get('details', [BudgetController::class, 'get_budget']);
+        Route::post('pay', [BudgetController::class, 'pay']);
+        Route::post('charge', [BudgetController::class, 'charge']);
+    });
+
+
+
+
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
 
     });
+
+
 
     Route::middleware(['auth:sanctum', 'can:isClient'])->group(function() {
 

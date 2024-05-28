@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Events\EmailVerification;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\RegisterClientRequest;
+use App\Http\Requests\RegisterSponsorRequest;
+use App\Jobs\DeleteAccount;
+use App\Models\Budget;
 use App\Models\Client;
 use App\Models\Role;
 use App\Models\Sponsor;
@@ -21,21 +25,8 @@ class RegisterController extends BaseController
         $input = $request->all();
         if ($input['is_client'])
         {
-            $validator = Validator::make($input, [
-                'first_name'    => 'required|string|max:255',
-                'last_name'     => 'required|string|max:255',
-                'email'         => 'required|email|unique:users,email',
-                'phone'         => 'required|digits:10|unique:users,phone',
-                'password'      => 'required|string|min:8',
-                'address'       => 'required',
-                'gender'        => 'required|in:male,female',
-                'image'         => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg']
-            ],[
-                'phone.unique'  => 'phone is not unique',
-                'phone.digits'  => 'Phone must contain number only',
-                'email.unique'  => 'email is not unique',
-                'password.min'  =>'password must be at least 8 characters'
-             ]);
+            $registerRequest = new RegisterClientRequest();
+            $validator = Validator::make($input, $registerRequest->rules());
 
             if ($validator->fails())
             {
@@ -47,80 +38,63 @@ class RegisterController extends BaseController
 
             $user = User::create($input);
 
-            $user_image = "";
-            if($request->hasFile('image'))
-            {
-                $image= $request->file('image');
-                $user_image = time().'.'.$image->getClientOriginalExtension();
-                $path = 'images/' . 'client'.'/';
-                $image->move($path, $user_image);
-                $user_image = $path.$user_image ;
-            }
-            $input['image'] = $user_image;
+            $input['image'] = $this->getImage($request, "client");
 
-            
             $response = $this->extracted_data($user, Client::create([
                 'first_name'    =>  $input['first_name'],
                 'last_name'     =>  $input['last_name'],
-                'address'       => $input['address'],
-                'gender'        => $input['gender'],
-                'image'         => $input['image'],
+                'address'       =>  $input['address'],
+                'gender'        =>  $input['gender'],
+                'image'         =>  $input['image'],
             ]));
         }
         else
         {
-            $validator = Validator::make($input, [
-                'first_name'      => 'required|string|max:255',
-                'last_name'       => 'required|string|max:255',
-                'email'           => 'required|email|unique:users,email',
-                'phone'           => 'required|digits:10|unique:users,phone',
-                'password'        => 'required|string|min:8',
-                'work_experience' => 'required',
-                'image'           => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg']
-            ],[
-                'phone.unique'    => 'phone is not unique',
-                'phone.digits'    => 'Phone must contain number only',
-                'email.unique'    => 'email is not unique',
-                'password.min'    =>'password must be at least 8 characters'
-            ]);
-    
+            $registerRequest = new RegisterSponsorRequest();
+            $validator = Validator::make($input, $registerRequest->rules());
+
             if ($validator->fails())
             {
                 return $this->sendError($validator->errors());
             }
-    
+
             $input['password'] = Hash::make($input['password']);
             $input['role_id']  = $input['is_sponsor'] = Role::ROLE_SPONSOR;
-    
+
             $user = User::create($input);
-    
-            $user_image = null;
-            if($request->hasFile('image'))
-            {
-                $image= $request->file('image');
-                $user_image = time().'.'.$image->getClientOriginalExtension();
-                $path = 'images/' . 'sponsor'.'/';  
-                $image->move($path, $user_image);
-                $user_image = $path.$user_image ;
-            }
-            $input['image'] = $user_image;
-    
-            
-            
+
+            $input['image'] = $this->getImage($request, "sponsor");
+
             $response = $this->extracted_data($user, Sponsor::create([
                 'first_name'     =>  $input['first_name'],
                 'last_name'      =>  $input['last_name'],
-                'image'          => $input['image'],
-                'work_experience'=>$input['work_experience'],
-                    
+                'image'          =>  $input['image'],
+                'work_experience'=>  $input['work_experience'],
+
             ]));
         }
+
         return $response;
     }
-    
+
+    public function getImage($request, $type)
+    {
+        $user_image = "";
+        if($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $user_image = time().'.'.$image->getClientOriginalExtension();
+            $path = 'images/' . $type.'/';
+            $image->move($path, $user_image);
+            $user_image = $path.$user_image;
+        }
+
+        return $user_image;
+    }
+
     protected function extracted_data($user, $specified_user_data): JsonResponse
     {
-        //$the second parameter can be clienrt or sponsor
+        // $the second parameter can be client or sponsor
         $user->userable()->associate($specified_user_data);
         $user->save();
 
@@ -133,8 +107,14 @@ class RegisterController extends BaseController
         $specified_user_data['accessToken'] = $user->createToken('access token')->plainTextToken;;
         $specified_user_data['id'] = $user['id'];
 
+        // just to create Budget
+        Budget::create([
+            'user_id' => $user->id,
+        ]);
+
         // just to send email verification
-      //  event(new EmailVerification($user));
+        event(new EmailVerification($user->email));
+        DeleteAccount::dispatch($user)->delay(60);
 
         return $this->sendResponse($specified_user_data);
     }

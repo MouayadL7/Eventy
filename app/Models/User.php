@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use Google\Service\AdSenseHost\Report;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class User extends Authenticatable
@@ -52,9 +54,19 @@ class User extends Authenticatable
         'updated_at' => 'datetime:Y-m-d'
     ];
 
+    public function budget() : HasOne
+    {
+        return $this->hasOne(Budget::class);
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function transactions() : HasMany
+    {
+        return $this->hasMany(Transactions::class);
     }
 
     public function userable() : MorphTo
@@ -69,7 +81,12 @@ class User extends Authenticatable
 
     public function routeNotificationForFcm($driver, $notification = null)
     {
-        return $this->deviceTokens()->pluck('token')->toArray();
+        return $this->deviceTokens()->pluck('device_token')->toArray();
+    }
+
+    public function Report() : HasMany
+    {
+        return $this->hasMany(Report::class);
     }
 }
 
