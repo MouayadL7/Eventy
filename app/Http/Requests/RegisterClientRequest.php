@@ -29,7 +29,7 @@ class RegisterClientRequest extends FormRequest
             'phone'         => 'required|digits:10|unique:users,phone',
             'password'      => 'required|string|min:8',
             'address'       => 'required',
-            'gender'        => 'required|in:male,female',
+            'gender'        => 'required|in:Male,Female',
             'image'         => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg']
         ];
     }

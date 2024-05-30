@@ -74,6 +74,7 @@ class BudgetController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'balance' => ['required', 'numeric','min:1'],
+            'balance_sponsor' => ['required', 'numeric', 'min:1'],
             'booking_id' => ['required', 'exists:bookings,id']
         ]);
 

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\EmailVerification;
+use App\Events\ResetPassword;
+use App\Listeners\ResetPassword as ListenersResetPassword;
 use App\Listeners\SendEmailVerification;
 use App\Mail\SendCodeEmailVerification;
 use Illuminate\Auth\Events\Registered;
@@ -26,7 +28,11 @@ class EventServiceProvider extends ServiceProvider
         EmailVerification::class => [
             SendEmailVerification::class,
         ],
-        
+
+        ResetPassword::class => [
+            ListenersResetPassword::class,
+        ],
+
     ];
 
     /**
@@ -34,7 +40,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+
     }
 
     /**

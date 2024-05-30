@@ -31,7 +31,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 //EmailVerification
 Route::post('user/email/check',[EmailVerificationController::class,'userCheckCode']);
-Route::post('resendCode',[EmailVerificationController::class,'resendCode']);
+Route::post('resendcode',[EmailVerificationController::class,'resendCode']);
 
 
 //login
@@ -41,6 +41,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('user/password/email',[ResetPasswordController::class,'userForgotPassword']);
 Route::post('user/password/check', [ResetPasswordController::class, 'userCheckCode']);
 Route::post('user/password/reset',[ResetPasswordController::class,'userResetPassword']);
+Route::post('user/password/resendcode', [ResetPasswordController::class, 'resendCode']);
 
 //logout
 Route::middleware('auth:sanctum')->group (function(){
@@ -49,21 +50,8 @@ Route::middleware('auth:sanctum')->group (function(){
 
 
 Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
-    Route::post('/services/add', [serviceController::class, 'addservice'])->name('services.add');
-    Route::get('/allservice', [Servicecontroller::class, 'getallservices']);
-    Route::get('/service_categoury/{categoury}', [Servicecontroller::class, 'showcategouryser']);
 
     });
-
-    // Budget routes
-    Route::prefix('budget')->group(function () {
-        Route::get('details', [BudgetController::class, 'get_budget']);
-        Route::post('pay', [BudgetController::class, 'pay']);
-        Route::post('charge', [BudgetController::class, 'charge']);
-    });
-
-
-
 
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
 
@@ -72,6 +60,13 @@ Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
 
 
     Route::middleware(['auth:sanctum', 'can:isClient'])->group(function() {
+        
+        // Budget routes
+        Route::prefix('budget')->group(function () {
+            Route::get('details', [BudgetController::class, 'get_budget']);
+            Route::post('pay', [BudgetController::class, 'pay']);
+            Route::post('charge', [BudgetController::class, 'charge']);
+        });
 
     });
 });

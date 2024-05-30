@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\ResetPassword;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ResetPasswordRequest;
@@ -20,7 +21,7 @@ class ResetPasswordController extends BaseController
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'email'=>'required|email|exists:users,email',  
+            'email'=>'required|email|exists:users,email',
         ]);
 
             if ($validator->fails())
@@ -43,6 +44,7 @@ class ResetPasswordController extends BaseController
         Mail::to($request['email'])->send(new SendCodeResetPassword($codeData['code']));
         return $this->sendResponse([]);
     }
+
     public function userCheckCode(Request $request) : JsonResponse
     {
         $resetPasswordRequest = new ResetPasswordRequest();
@@ -69,6 +71,7 @@ class ResetPasswordController extends BaseController
 
         return $this->sendResponse([]);
     }
+    
     public function userResetPassword(Request $request) : JsonResponse
     {
         $input = $request->all();
@@ -101,7 +104,23 @@ class ResetPasswordController extends BaseController
 
         //delete current code
         $passwordReset->delete();
-        
+
+        return $this->sendResponse([]);
+    }
+
+    public function resendCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'email', 'exists:users,email']
+        ]);
+
+        if ($validator->fails())
+        {
+            return $this->sendError($validator->errors());
+        }
+
+        ResetPassword::dispatch($request->email);
+
         return $this->sendResponse([]);
     }
 }
