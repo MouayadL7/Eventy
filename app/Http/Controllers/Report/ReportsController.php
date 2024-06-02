@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\replyReportRequest;
@@ -48,8 +48,8 @@ class ReportsController extends BaseController
 
         $report = Reports::create([
             'user_id' => Auth::id(),
-            'body' => $request->body,
-            'title' => $request->body,
+            'body'    => $request->body,
+            'title'   => $request->title,
         ]);
 
         return $this->sendResponse($report);
@@ -103,17 +103,16 @@ class ReportsController extends BaseController
         }
 
         $reply = [
-            'body' => $request->body,
-            'title' => $request->body,
+            'body'  => $request->body,
+            'title' => $request->title,
         ];
 
         $user = User::find($request->user_id);
         Mail::to($user->email)->send(new AdminReply($reply));
         return $this->sendResponse();
-
     }
 
-    public function newreply()
+    public function newReports()
     {
         $reports = Reports::query()->whereNull('read_at')->get();
 

@@ -48,7 +48,7 @@ class LoginController extends BaseController
             $userable['accesstoken'] = $request->user()->createToken('access token')->plainTextToken;
             $userable['id']          = $user['id'];
 
-            $request->user()->notify(new UserNotification('Sarah','SARSARA'));
+           // $request->user()->notify(new UserNotification('Sarah','SARSARA'));
 
             return $this->sendResponse($userable);
         }

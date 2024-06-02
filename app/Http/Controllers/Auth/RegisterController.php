@@ -98,9 +98,6 @@ class RegisterController extends BaseController
         $user->userable()->associate($specified_user_data);
         $user->save();
 
-        // just to send it to the API
-        $token = $user->createToken('Personal Access Token')->accessToken;
-
         $specified_user_data['phone'] = $user['phone'];
         $specified_user_data['email'] = $user['email'];
         $specified_user_data['role_id'] = $user['role_id'];

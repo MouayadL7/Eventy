@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Reports extends Model
 {
     use HasFactory;
-    protected $casts = [
+    protected $fillable = [
         'user_id',
         'body',
-        'titie',
+        'title',
         'read_at'
     ];
 

@@ -26,7 +26,7 @@ class BudgetController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'balance' => ['required', 'numeric','min:1'],
-            'booking_id' => ['required', 'exists:bookings,id']
+            //'booking_id' => ['required', 'exists:bookings,id']
         ]);
 
         if ($validator->fails()) {
@@ -55,10 +55,10 @@ class BudgetController extends BaseController
             }
         )->first();
 
-        $transaction = Transactions::create([
-            'book_id' => $request->booking_id,
+        $transactio = Transactions::create([
+            //'book_id' => $request->booking_id,
             'user_id'  => Auth::id(),
-            'transaction _status_id' => $transaction_status->id,
+            'transaction_status_id' => $transaction_status->id,
             'transaction_type_id' => $transaction_type->id,
             'balance' => $request->balance,
         ]);
@@ -74,8 +74,7 @@ class BudgetController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'balance' => ['required', 'numeric','min:1'],
-            'balance_sponsor' => ['required', 'numeric', 'min:1'],
-            'booking_id' => ['required', 'exists:bookings,id']
+            //'booking_id' => ['required', 'exists:bookings,id']
         ]);
 
         if ($validator->fails()) {
@@ -104,15 +103,18 @@ class BudgetController extends BaseController
         )->first();
 
         $transaction = Transactions::create([
-            'book_id' => $request->booking_id,
+            //'book_id' => $request->booking_id,
             'user_id'  => Auth::id(),
-            'transaction _status_id' => $transaction_status->id,
+            'transaction_status_id' => $transaction_status->id,
             'transaction_type_id' => $transaction_type->id,
             'balance' => $request->balance,
         ]);
 
         $budget = Budget::where('user_id', Auth::id())->first();
         $budget->update(['balance' => $budget->balance - $request->balance]);
+
+        $admin_budget = Budget::where('user_id', 1)->first();
+        $admin_budget->update(['balance' => $budget->balance + $request->balance]);
 
         return $this->sendResponse($budget);
     }

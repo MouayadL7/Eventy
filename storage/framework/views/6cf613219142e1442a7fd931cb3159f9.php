@@ -57,14 +57,15 @@
                 <h1>Report Reply</h1>
             </div>
             <div class="email-body">
-                <h2>{{ $data['title'] }}</h2>
-                <p>{{ $data['body'] }}</p>
+                <h2><?php echo e($data['title']); ?></h2>
+                <p><?php echo e($data['body']); ?></p>
             </div>
             <div class="email-footer">
                 <p>If you have any questions, please feel free to <a href="mailto:thesarahtlass@gmail.com">contact us</a>.</p>
-                <p>© {{ date('Y') }} Eventy. All rights reserved.</p>
+                <p>© <?php echo e(date('Y')); ?> Eventy. All rights reserved.</p>
             </div>
         </div>
     </div>
 </body>
 </html>
+<?php /**PATH C:\Users\pc\Desktop\New folder\Eventy\resources\views/emails/admin-reply.blade.php ENDPATH**/ ?>

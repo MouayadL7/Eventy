@@ -12,6 +12,7 @@ use App\Http\Controllers\{
     Auth\ResetPasswordController,
 };
 use App\Http\Controllers\Payment\BudgetController;
+use App\Http\Controllers\Report\ReportsController;
 use App\Models\service;
 
 /*
@@ -49,8 +50,10 @@ Route::middleware('auth:sanctum')->group (function(){
 
 
 
-Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
-
+    Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
+        // Report
+        Route::post('report/reply', [ReportsController::class, 'reply']);
+        Route::get('report/newReports', [ReportsController::class, 'newReports']);
     });
 
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
@@ -60,7 +63,7 @@ Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
 
 
     Route::middleware(['auth:sanctum', 'can:isClient'])->group(function() {
-        
+
         // Budget routes
         Route::prefix('budget')->group(function () {
             Route::get('details', [BudgetController::class, 'get_budget']);
@@ -68,5 +71,7 @@ Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
             Route::post('charge', [BudgetController::class, 'charge']);
         });
 
+        // Report
+        Route::post('report/create', [ReportsController::class, 'store']);
     });
 });
