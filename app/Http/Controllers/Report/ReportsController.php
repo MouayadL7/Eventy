@@ -107,7 +107,12 @@ class ReportsController extends BaseController
             'title' => $request->title,
         ];
 
-        $user = User::find($request->user_id);
+        $report = Reports::find($request->report_id);
+        $report->update([
+            'read_at' => Carbon::now()
+        ]);
+
+        $user = User::find($report->user_id);
         Mail::to($user->email)->send(new AdminReply($reply));
         return $this->sendResponse();
     }
@@ -120,10 +125,6 @@ class ReportsController extends BaseController
         {
             return $this->sendresponse([]);
         }
-
-        $reports->toQuery()->update([
-            'read_at' => Carbon::now(),
-        ]);
 
         return $this->sendresponse($reports);
     }

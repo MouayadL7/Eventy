@@ -54,6 +54,9 @@ Route::middleware('auth:sanctum')->group (function(){
         // Report
         Route::post('report/reply', [ReportsController::class, 'reply']);
         Route::get('report/newReports', [ReportsController::class, 'newReports']);
+
+        // Budget
+        Route::post('budget/charge', [BudgetController::class, 'charge']);
     });
 
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
@@ -68,7 +71,6 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::prefix('budget')->group(function () {
             Route::get('details', [BudgetController::class, 'get_budget']);
             Route::post('pay', [BudgetController::class, 'pay']);
-            Route::post('charge', [BudgetController::class, 'charge']);
         });
 
         // Report
