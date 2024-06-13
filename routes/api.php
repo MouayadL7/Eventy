@@ -10,6 +10,12 @@ use App\Http\Controllers\{
     Auth\RegisterController,
     Auth\EmailVerificationController,
     Auth\ResetPasswordController,
+    CartController,
+    CategouryController,
+    FavouriteController,
+    OrderController,
+    RatingController,
+    SearchController,
 };
 use App\Http\Controllers\Payment\BudgetController;
 use App\Http\Controllers\Report\ReportsController;
@@ -75,5 +81,53 @@ Route::middleware('auth:sanctum')->group (function(){
 
         // Report
         Route::post('report/create', [ReportsController::class, 'store']);
+
+        //services
+        Route::prefix('services')->group(function () {
+            Route::get('allservice', [Servicecontroller::class, 'getallservices']);
+            Route::get('service_categoury/{categoury}', [Servicecontroller::class, 'showcategouryser']);
+            //search and filter
+            Route::get('search', [SearchController::class, 'search']);
+            Route::get('filter', [SearchController::class, 'filter']);
+        });
+
+        //categories
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategouryController::class, 'index']);
+            Route::get('/{categoury}', [CategouryController::class, 'show']);
+        });
+
+        //rating
+        Route::post('organizers/{sponsor}/ratings', [RatingController::class, 'store']);
+        Route::get('rates/{sponsor}', [RatingController::class, 'sponserRate']);
+
+        Route::prefix('favorites')->group(function () {
+            // Add a service to favorites
+            Route::post('add', [FavouriteController::class, 'add']);
+            // Remove a service from favorites
+            Route::post('remove', [FavouriteController::class, 'remove'])->name('favorites.remove');
+            // List favorite services
+            Route::get('/', [FavouriteController::class, 'list'])->name('favorites.list');
+        });
+
+        // Cart routes
+        Route::prefix('cart')->group(function () {
+            Route::get('/', [CartController::class, 'index'])->name('cart.index');
+            Route::post('add', [CartController::class, 'store']);
+            Route::get('/{id}', [CartController::class, 'show'])->name('cart.show');
+            Route::post('delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+            Route::post('confirm', [OrderController::class, 'confirm'])->name('cart.confirm');
+        });
+
+        // Order routes
+        Route::prefix('order')->group(function () {
+            Route::delete('/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+            Route::post('/{orderId}/state', [OrderController::class, 'updateOrderState'])->name('order.updateState');
+        });
+
+        //booking
+        Route::prefix('bookings')->group(function () {
+            Route::get('dates/{serviceId}', [CartController::class, 'getBookedDates']);
+        });
     });
 });

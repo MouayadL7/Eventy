@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('work_experience');
             $table->string('image')->nullable();
+            $table->foreignId('categoury_id')->nullable()->constrained('categouries')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

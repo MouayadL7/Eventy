@@ -47,6 +47,10 @@ class RegisterController extends BaseController
                 'gender'        =>  $input['gender'],
                 'image'         =>  $input['image'],
             ]));
+            // Create a cart for the client
+            $cart = new Cart();
+            $cart->client_id = Client::get()->last()->id;
+            $cart->save();
         }
         else
         {
@@ -66,14 +70,13 @@ class RegisterController extends BaseController
             $input['image'] = $this->getImage($request, "sponsor");
 
             $response = $this->extracted_data($user, Sponsor::create([
-                'first_name'     =>  $input['first_name'],
-                'last_name'      =>  $input['last_name'],
-                'image'          =>  $input['image'],
-                'work_experience'=>  $input['work_experience'],
-
+                'first_name'      =>  $input['first_name'],
+                'last_name'       =>  $input['last_name'],
+                'image'           =>  $input['image'],
+                'work_experience' =>  $input['work_experience'],
+                'categoury_id'    => 8
             ]));
         }
-
         return $response;
     }
 
@@ -101,7 +104,6 @@ class RegisterController extends BaseController
         $specified_user_data['phone'] = $user['phone'];
         $specified_user_data['email'] = $user['email'];
         $specified_user_data['role_id'] = $user['role_id'];
-        $specified_user_data['accessToken'] = $user->createToken('access token')->plainTextToken;;
         $specified_user_data['id'] = $user['id'];
 
         // just to create Budget
