@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_states', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('name_EN');
-            $table->string('name_AR');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('conversation_id')->constrained('conversations')->onDelete('cascade');
+            $table->string('message');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_states');
+        Schema::dropIfExists('messages');
     }
 };

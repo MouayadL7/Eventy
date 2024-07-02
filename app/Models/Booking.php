@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Booking extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id', 'service_id', 'event_date', 'order_id'];
+    protected $fillable = ['service_id', 'event_date', 'order_id', 'price'];
 
     public function client(): BelongsTo
     {

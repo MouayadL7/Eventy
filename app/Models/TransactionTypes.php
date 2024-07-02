@@ -30,6 +30,6 @@ class TransactionTypes extends Model
                 return $query->select('name_AR as name')->find($id);
             }
         );
-        $transaction_type->name;
+        return $transaction_type->name;
     }
 }

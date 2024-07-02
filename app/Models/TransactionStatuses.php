@@ -30,6 +30,6 @@ class TransactionStatuses extends Model
                 return $query->select('name_AR as name')->find($id);
             }
         );
-        $transaction_status->name;
+        return $transaction_status->name;
     }
 }

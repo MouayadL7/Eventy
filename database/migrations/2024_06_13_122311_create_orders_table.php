@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
-            $table->enum('state', ['pending', 'in preparation', 'done'])->default('pending');
+            $table->foreignId('order_state_id')->constrained('order_states')->onDelete('cascade');
             $table->timestamps();
         });
     }

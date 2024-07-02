@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('book_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('transaction_type_id');
             $table->unsignedBigInteger('transaction_status_id');
@@ -22,7 +21,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('book_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_types')->onDelete('cascade');
             $table->foreign('transaction_status_id')->references('id')->on('transaction_statuses')->onDelete('cascade');
         });

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Cart_item extends Model
 {
     use HasFactory;
+    protected $table = "cart_items";
 
     protected $fillable = [
         'cart_id',
@@ -27,6 +28,6 @@ class Cart_item extends Model
 
     public function service() : BelongsTo
     {
-        return $this->belongsTo(service::class);
+        return $this->belongsTo(Service::class);
     }
 }

@@ -19,7 +19,7 @@ class BookingController extends BaseController
         {
             $order = Order::with('bookings.service')->find($request->order_id);
             if (is_null($order)) {
-                return $this->sendError(['message' => 'There is not order with this ID']);
+                return $this->sendError(['There is no order with this ID']);
             }
             
             return $this->sendResponse($order);
@@ -39,7 +39,7 @@ class BookingController extends BaseController
      */
     public function store(Request $request)
     {
-
+      //
     }
 
     /**
@@ -66,20 +66,8 @@ class BookingController extends BaseController
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $booking = Booking::find($id);
-        if (is_null($booking)) {
-            return $this->sendError(['message' => 'There is not booking with this ID']);
-        }
-
-        $booking->delete();
-        return $this->sendResponse();
+        //
     }
-
-    public function get_booked_dates(Request $request)
-   {}
 }

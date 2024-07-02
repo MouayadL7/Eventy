@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Client extends Model
@@ -32,10 +33,16 @@ class Client extends Model
     public function rates() {
         return $this->hasMany(Rating::class);
     }
+
     public function sponsors()
     {
         return $this->belongsToMany(Sponsor::class, 'ratings')
                     ->withPivot('rating')
                     ->withTimestamps();
+    }
+
+    public function orders() : HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -15,4 +15,17 @@ class OrderState extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function get_order_state($id , string $lang){
+        $order_state = OrderState::query()->when($lang == 'en' ,
+            function($query) use($id){
+                return $query->select('name_EN as name')->find($id);
+            }
+            ,
+            function($query) use($id){
+                return $query->select('name_AR as name')->find($id);
+            }
+        );
+        return $order_state->name;
+    }
 }

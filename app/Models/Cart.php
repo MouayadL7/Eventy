@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
@@ -12,10 +13,13 @@ class Cart extends Model
     protected $fillable = [
         'client_id'
     ];
-    public function client() {
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
-    public function items() {
-        return $this->hasMany(Cart_item::class);
+    public function cart_items(): HasMany
+    {
+        return $this->hasMany(Cart_item::class, 'cart_id');
+
     }
 }

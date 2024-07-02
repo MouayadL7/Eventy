@@ -28,7 +28,9 @@ class RegisterSponsorRequest extends FormRequest
             'phone'           => 'required|digits:10|unique:users,phone',
             'password'        => 'required|string|min:8',
             'work_experience' => 'required',
-            'image'           => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg']
+            'image'           => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg'],
+            'price'           => ['required', 'integer'],
+            'location'        => ['required', 'string']
         ];
     }
 }

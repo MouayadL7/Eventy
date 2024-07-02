@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Servicecontroller;
 use App\Http\Controllers\{
+    AbroveController,
     Auth\LoginController,
     Auth\LogoutController,
     Auth\RegisterController,
@@ -14,6 +15,7 @@ use App\Http\Controllers\{
     CategouryController,
     FavouriteController,
     OrderController,
+    OrderStateController,
     RatingController,
     SearchController,
 };
@@ -36,9 +38,11 @@ use App\Models\service;
 //register
 Route::post('/register', [RegisterController::class, 'register']);
 
+
 //EmailVerification
 Route::post('user/email/check',[EmailVerificationController::class,'userCheckCode']);
 Route::post('resendcode',[EmailVerificationController::class,'resendCode']);
+
 
 
 //login
@@ -54,6 +58,11 @@ Route::post('user/password/resendcode', [ResetPasswordController::class, 'resend
 Route::middleware('auth:sanctum')->group (function(){
     Route::post('/logout', [LogoutController::class, 'logout']);
 
+    Route::get('order', [OrderController::class, 'index']);
+
+
+
+
 
 
     Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
@@ -63,10 +72,24 @@ Route::middleware('auth:sanctum')->group (function(){
 
         // Budget
         Route::post('budget/charge', [BudgetController::class, 'charge']);
+
+        //Add Servic
+        Route::post('add', [Servicecontroller::class, 'addservice']);
+
+        // Abrove
+        Route::prefix('abrove')->group(function () {
+                Route::get('/', [AbroveController::class, 'index']);
+                Route::get('{id}', [AbroveController::class, 'show']);
+                Route::post('reply', [AbroveController::class, 'reply']);
+        });
+
+        // Service
+        Route::get('allservice', [Servicecontroller::class, 'getallservices']);
     });
 
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
-
+        // Order State
+        Route::post('order/{orderId}/state', [OrderStateController::class, 'updateOrderState']);
     });
 
 
@@ -76,7 +99,6 @@ Route::middleware('auth:sanctum')->group (function(){
         // Budget routes
         Route::prefix('budget')->group(function () {
             Route::get('details', [BudgetController::class, 'get_budget']);
-            Route::post('pay', [BudgetController::class, 'pay']);
         });
 
         // Report
@@ -84,9 +106,10 @@ Route::middleware('auth:sanctum')->group (function(){
 
         //services
         Route::prefix('services')->group(function () {
-            Route::get('allservice', [Servicecontroller::class, 'getallservices']);
+
             Route::get('service_categoury/{categoury}', [Servicecontroller::class, 'showcategouryser']);
-            //search and filter
+
+       //search and filter
             Route::get('search', [SearchController::class, 'search']);
             Route::get('filter', [SearchController::class, 'filter']);
         });
@@ -102,11 +125,11 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::get('rates/{sponsor}', [RatingController::class, 'sponserRate']);
 
         Route::prefix('favorites')->group(function () {
-            // Add a service to favorites
+        // Add a service to favorites
             Route::post('add', [FavouriteController::class, 'add']);
-            // Remove a service from favorites
+        // Remove a service from favorites
             Route::post('remove', [FavouriteController::class, 'remove'])->name('favorites.remove');
-            // List favorite services
+        // List favorite services
             Route::get('/', [FavouriteController::class, 'list'])->name('favorites.list');
         });
 
@@ -114,15 +137,13 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::prefix('cart')->group(function () {
             Route::get('/', [CartController::class, 'index'])->name('cart.index');
             Route::post('add', [CartController::class, 'store']);
-            Route::get('/{id}', [CartController::class, 'show'])->name('cart.show');
-            Route::post('delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-            Route::post('confirm', [OrderController::class, 'confirm'])->name('cart.confirm');
+            Route::delete('/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
         });
 
         // Order routes
         Route::prefix('order')->group(function () {
-            Route::delete('/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
-            Route::post('/{orderId}/state', [OrderController::class, 'updateOrderState'])->name('order.updateState');
+            Route::delete('/{id}/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+            Route::get('confirm', [OrderController::class, 'confirm']);
         });
 
         //booking

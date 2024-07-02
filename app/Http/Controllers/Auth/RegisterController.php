@@ -8,7 +8,9 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\RegisterClientRequest;
 use App\Http\Requests\RegisterSponsorRequest;
 use App\Jobs\DeleteAccount;
+use App\Models\Abrove;
 use App\Models\Budget;
+use App\Models\Cart;
 use App\Models\Client;
 use App\Models\Role;
 use App\Models\Sponsor;
@@ -70,12 +72,18 @@ class RegisterController extends BaseController
             $input['image'] = $this->getImage($request, "sponsor");
 
             $response = $this->extracted_data($user, Sponsor::create([
-                'first_name'      =>  $input['first_name'],
-                'last_name'       =>  $input['last_name'],
-                'image'           =>  $input['image'],
-                'work_experience' =>  $input['work_experience'],
-                'categoury_id'    => 8
+                'first_name'      => $input['first_name'],
+                'last_name'       => $input['last_name'],
+                'image'           => $input['image'],
+                'work_experience' => $input['work_experience'],
+                'location'        => $input['location'],
+                
             ]));
+
+            Abrove::create([
+                'sponsor_id' => $response->getData()->data->id,
+                'price'      => $request->price
+            ]);
         }
         return $response;
     }
@@ -113,7 +121,7 @@ class RegisterController extends BaseController
 
         // just to send email verification
         event(new EmailVerification($user->email));
-        DeleteAccount::dispatch($user)->delay(60);
+        DeleteAccount::dispatch($user)->delay(84600);
 
         return $this->sendResponse($specified_user_data);
     }

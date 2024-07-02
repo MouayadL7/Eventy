@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\Models\Rating;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sponsor extends Model
 {
@@ -17,7 +18,9 @@ class Sponsor extends Model
         'last_name',
         'image',
         'work_experience',
-        'categoury_id'
+        'service_id',
+        'location'
+
     ];
     protected $hidden = [
         'created_at', 'updated_at'
@@ -26,6 +29,7 @@ class Sponsor extends Model
     {
         return $this->morphOne(User::class , 'userable');
     }
+
     public function ratings()
     {
         return $this->hasMany(Rating::class);
@@ -35,13 +39,21 @@ class Sponsor extends Model
     {
         return $this->ratings()->avg('rating');
     }
+
     public function clients()
     {
         return $this->belongsToMany(Client::class, 'ratings')
                     ->withPivot('rating')
                     ->withTimestamps();
     }
-    public function category() {
-        return $this->belongsTo(Categoury::class);
+
+    public function service() : BelongsTo
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function abrove() : HasOne
+    {
+        return $this->hasOne(Abrove::class);
     }
 }

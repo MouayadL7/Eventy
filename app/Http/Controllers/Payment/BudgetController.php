@@ -26,102 +26,87 @@ class BudgetController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'balance' => ['required', 'numeric','min:1'],
-            //'booking_id' => ['required', 'exists:bookings,id']
+            'user_id' => ['required', 'exists:users,id']
         ]);
 
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
-        $lang = \request('lang');
-        $transaction_status = TransactionStatuses::query()->when($lang == 'en',
-            function($query) {
-                return $query->select('id')->where('name_EN', 'complete');
-            }
-            ,
-            function($query) {
-                return $query->select('id')->where('name_AR', 'مكتمل');
-            }
-        )->first();
-
-
-        $transaction_type = TransactionTypes::query()->when($lang == 'en',
-            function($query) {
-                return $query->select('id')->where('name_EN', 'recieve Cash');
-            }
-            ,
-            function($query) {
-                return $query->select('id')->where('name_AR', 'تلقي نقداً');
-            }
-        )->first();
-
-        $transactio = Transactions::create([
-            //'book_id' => $request->booking_id,
-            'user_id'  => Auth::id(),
+        $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
+        $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
+        Transactions::create([
+            'user_id'  => $request->user_id,
             'transaction_status_id' => $transaction_status->id,
             'transaction_type_id' => $transaction_type->id,
             'balance' => $request->balance,
         ]);
 
-        $budget = Budget::where('user_id', Auth::id())->first();
+        $budget = Budget::where('user_id', $request->user_id)->first();
         $budget->update(['balance' => $budget->balance + $request->balance]);
 
         return $this->sendResponse($budget);
     }
 
-
     public function pay(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'balance' => ['required', 'numeric','min:1'],
-            //'booking_id' => ['required', 'exists:bookings,id']
+            'balance' => ['required', 'numeric','min:0'],
         ]);
 
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
-        $lang = \request('lang');
-        $transaction_status = TransactionStatuses::query()->when($lang == 'en',
-            function($query) {
-                return $query->select('id')->where('name_EN', 'complete');
-            }
-            ,
-            function($query) {
-                return $query->select('id')->where('name_AR', 'مكتمل');
-            }
-        )->first();
-
-        $transaction_type = TransactionTypes::query()->when($lang == 'en',
-            function($query) {
-                return $query->select('id')->where('name_EN', 'pay Cash');
-            }
-            ,
-            function($query) {
-                return $query->select('id')->where('name_AR', 'دفع نقداً');
-            }
-        )->first();
-
-        $transaction = Transactions::create([
-            //'book_id' => $request->booking_id,
+        $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
+        $transaction_type = TransactionTypes::query()->where('name_EN', 'pay Cash')->first();
+        Transactions::create([
             'user_id'  => Auth::id(),
             'transaction_status_id' => $transaction_status->id,
             'transaction_type_id' => $transaction_type->id,
-            'balance' => $request->balance,
+            'balance' => $request->balance + $request->sponsor_price,
         ]);
 
         $budget = Budget::where('user_id', Auth::id())->first();
-        $budget->update(['balance' => $budget->balance - $request->balance]);
+        $budget->update(['balance' => $budget->balance - $request->balance - $request->sponsor_price]);
 
         $admin_budget = Budget::where('user_id', 1)->first();
-        $admin_budget->update(['balance' => $budget->balance + $request->balance]);
+        $admin_budget->update(['balance' => $admin_budget->balance + $request->balance]);
+
+        return $this->sendResponse($budget);
+    }
+
+    public function cancel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'balance' => ['required', 'numeric','min:0'],
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors());
+        }
+
+        $transaction_status = TransactionStatuses::query()->where('name_EN', 'cancel')->first();
+        $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
+        Transactions::create([
+            'user_id'  => Auth::id(),
+            'transaction_status_id' => $transaction_status->id,
+            'transaction_type_id' => $transaction_type->id,
+            'balance' => $request->balance + $request->sponsor_price,
+        ]);
+
+        $budget = Budget::where('user_id', Auth::id())->first();
+        $budget->update(['balance' => $budget->balance + $request->balance + $request->sponsor_price]);
+
+        $admin_budget = Budget::where('user_id', 1)->first();
+        $admin_budget->update(['balance' => $admin_budget->balance - $request->balance]);
 
         return $this->sendResponse($budget);
     }
 
     public function get_budget()
     {
-        $budget = Budget::where('user_id', Auth::id())->first();
+        $budget = Budget::where('user_id', Auth::id())->select('balance')->first();
         return $this->sendResponse($budget);
     }
 }

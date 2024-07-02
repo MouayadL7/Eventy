@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Controllers\BaseController;
 use App\Models\Order;
+use App\Models\OrderState;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class OrderStateController extends Controller
+use Illuminate\Support\Facades\Validator;
+
+class OrderStateController extends BaseController
 {
 
 
@@ -55,20 +58,19 @@ class OrderStateController extends Controller
      */
     public function updateOrderState(Request $request, $id)
     {
-        if (!$this->isSponsor()) {
-            return response()->json(['message' => 'Only sponsors can update order state.'], 403);
-        }
-
-        $order = Order::findOrFail($id);
-
-        $validated = $request->validate([
-            'state' => 'required|in:pending,in_preparation,done',
+        $order = Order::find($id);
+        $validator = Validator::make($request->all(), [
+            'state' => 'required|in:Pending,In Preparation,Done'
         ]);
 
-        $order->update(['state' => $validated['state']]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors());
+        }
 
-        return response()->json(['message' => 'Order state updated.', 'order' => $order]);
+        $order_state = OrderState::query()->where('name_EN', $request->state)->first();
+        $order->update(['order_state_id' => $order_state->id]);
 
+        return $this->sendResponse($order);
     }
 
     /**

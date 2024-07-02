@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_states', function (Blueprint $table) {
+        Schema::create('abroves', function (Blueprint $table) {
             $table->id();
-            $table->string('name_EN');
-            $table->string('name_AR');
+            $table->foreignId('sponsor_id')->constrained('users')->onDelete('cascade');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_states');
+        Schema::dropIfExists('abroves');
     }
 };

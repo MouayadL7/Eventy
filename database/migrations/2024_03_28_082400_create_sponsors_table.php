@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('work_experience');
+            $table->string('location');
             $table->string('image')->nullable();
-            $table->foreignId('categoury_id')->nullable()->constrained('categouries')->onDelete('cascade');
+            $table->foreignId('service_id')->nullable()->constrained('services')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class Service extends Model
 {
     use HasApiTokens,HasFactory, Notifiable;
@@ -17,7 +18,7 @@ class Service extends Model
      *
      * @var array<int, string>
      */
-      protected $fillable = [
+    protected $fillable = [
         'name' ,
         'categoury_id' ,
         'type' ,
@@ -27,31 +28,36 @@ class Service extends Model
         'location',
         'description',
         'image',
-      ];
-       // Cast availability field as an array
+    ];
+
+    // Cast availability field as an array
     protected $casts = [
     ];
-      public function categoury()
-      {
-          return $this->belongsTo(Categoury::class);
-      }
-      public function favorites()
-      {
-          return $this->hasMany(Favourite::class);
-      }
-      public function bookings()
-      {
-          return $this->hasMany(Booking::class);
-      }
-      // Check if the service is available on a given date
 
-    public function cart() : BelongsTo
+    public function categoury()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->belongsTo(Categoury::class);
     }
-    public function cartItems(): HasMany
+
+    public function sponsor() : HasOne
     {
-        return $this->hasMany(Cart_item::class);
+        return $this->hasOne(Sponsor::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    // Check if the service is available on a given date
+
+    public function cart_items(): HasMany
+    {
+        return $this->hasMany(Cart_item::class, 'service_id');
     }
 }
 

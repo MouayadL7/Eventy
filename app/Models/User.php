@@ -93,15 +93,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favourite::class);
     }
-    
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
 
     public function cart() : HasOne
     {
         return $this->hasOne(Cart::class);
+    }
+
+    public function conversations(): HasMany
+    {
+        return $this->hasMany(Conversation::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }
 
