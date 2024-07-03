@@ -13,7 +13,9 @@ use App\Http\Controllers\{
     Auth\ResetPasswordController,
     CartController,
     CategouryController,
+    ConversationController,
     FavouriteController,
+    MessageController,
     OrderController,
     OrderStateController,
     RatingController,
@@ -61,7 +63,8 @@ Route::middleware('auth:sanctum')->group (function(){
     Route::get('order', [OrderController::class, 'index']);
 
 
-
+    Route::resource('conversation', ConversationController::class);
+    Route::resource('message', MessageController::class);
 
 
 

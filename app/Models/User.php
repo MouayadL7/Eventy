@@ -99,9 +99,9 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
-    public function conversations(): HasMany
+    public function conversations()
     {
-        return $this->hasMany(Conversation::class);
+        return $this->belongsToMany(Conversation::class, 'participants')->latest('last_message_id');
     }
 
     public function messages(): HasMany

@@ -14,6 +14,11 @@ class Recipiants extends Model
         'message_id',
         'read_at',
     ];
+    
+    protected $casts = [
+        'read_at' => 'datetime',
+    ];
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);

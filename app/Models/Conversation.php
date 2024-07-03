@@ -13,13 +13,37 @@ class Conversation extends Model
     use HasFactory;
     protected $fillable = ['last_message_id'];
 
-    public function participants(): HasMany
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    public function participants()
     {
-        return $this->hasMany(User::class, 'participants');
+        return $this->belongsToMany(User::class, 'participants');
     }
 
-    public function last_message() :HasMany
+    public function recipiants()
+    {
+        return $this->hasManyThrough(Recipiants::class, Message::class, 'conversation_id', 'message_id', 'id', 'id');
+    }
+
+    public function messages() :HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function last_message()
+    {
+        return $this->belongsTo(Message::class, 'last_message_id', 'id')
+            ->whereNull('deleted_at')
+            ->withDefault([
+                'message' => 'Message deleted'
+            ]);
     }
 }

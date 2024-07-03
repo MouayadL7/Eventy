@@ -52,8 +52,8 @@ class FavouriteController extends BaseController
     public function list_info()
     {
         $favorites = Favourite::where('user_id', auth()->id())
-                             ->with('service')
-                             ->get();
+                                ->with('service')
+                                ->get();
 
         return response()->json($favorites, 200);
     }

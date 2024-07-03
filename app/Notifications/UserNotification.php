@@ -15,8 +15,8 @@ class UserNotification extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
-    public $title, $body;
-    
+    public $title, $body, $data;
+
      /**
       * Create a new notification instance.
       */
@@ -27,7 +27,7 @@ class UserNotification extends Notification implements ShouldBroadcast
     }
 
 
-    /** 
+    /**
      * Get the notification's delivery channels.
      *
      * @return array<int, string>
@@ -37,7 +37,7 @@ class UserNotification extends Notification implements ShouldBroadcast
         return [FcmChannel::class, 'database'];
     }
 
-    /** 
+    /**
      * Get the mail representation of the notification.
      */
     public function toMail(object $notifiable): MailMessage
@@ -68,11 +68,12 @@ class UserNotification extends Notification implements ShouldBroadcast
                     'analytics_label' => 'eventy',
                 ],
             ],
-        ]);
+        ])
+        ->data($this->data);
     }
 
 
-    /** 
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>

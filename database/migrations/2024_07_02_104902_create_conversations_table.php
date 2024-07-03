@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('last_message_id')->constrained('messages')->onDelete('cascade');
+            $table->foreignId('last_message_id')->nullable()->constrained('messages')->nullOnDelete('cascade');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
