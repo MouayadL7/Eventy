@@ -17,11 +17,11 @@ class BookingController extends BaseController
     {
         if ($request->has('order_id'))
         {
-            $order = Order::with('bookings.service')->find($request->order_id);
+            $order = Order::with('bookings.service.images')->find($request->order_id);
             if (is_null($order)) {
                 return $this->sendError(['There is no order with this ID']);
             }
-            
+
             return $this->sendResponse($order);
         }
     }

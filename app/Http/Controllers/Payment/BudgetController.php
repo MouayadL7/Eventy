@@ -20,8 +20,6 @@ use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 
 class BudgetController extends BaseController
 {
-
-
     public function charge(Request $request)
     {
         $validator = Validator::make($request->all(), [

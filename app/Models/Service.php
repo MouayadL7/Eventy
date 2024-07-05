@@ -19,21 +19,21 @@ class Service extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name' ,
-        'categoury_id' ,
-        'type' ,
-        'contact_number' ,
-        'rating' ,
-        'price' ,
+        'name',
+        'categoury_id',
+        'type',
+        'contact_number',
+        'rating',
+        'price',
         'location',
         'description',
-        'image',
-    ];
+        'profile_image',
 
-    // Cast availability field as an array
-    protected $casts = [
     ];
-
+    public function images()
+    {
+        return $this->hasMany(ServiceImage::class);
+    }
     public function categoury()
     {
         return $this->belongsTo(Categoury::class);

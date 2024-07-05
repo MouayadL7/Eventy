@@ -9,6 +9,9 @@ use App\Models\Booking;
 use App\Models\Budget;
 use App\Models\Categoury;
 use App\Models\Service;
+use App\Models\Transactions;
+use App\Models\TransactionStatuses;
+use App\Models\TransactionTypes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,12 +31,12 @@ class OrderController extends BaseController
         }
 
         if ($request->has('event_date')) {
-            $orders = Order::with('bookings.service')
+            $orders = Order::with('bookings.service.images')
                             ->whereRaw('id IN (SELECT order_id FROM bookings WHERE bookings.event_date = ?)', [$request->event_date])
                             ->get();
         }
         else {
-            $orders = Order::query()->with('bookings.service')->get();
+            $orders = Order::query()->with('bookings.service.images')->get();
         }
 
         return $this->sendResponse((new Order)->get_orders($orders, request('lang')));
@@ -41,7 +44,7 @@ class OrderController extends BaseController
 
     public function indexByClientId()
     {
-        $orders = Order::query()->with('bookings.service')->where('client_id', auth()->user()->userable_id)->get();
+        $orders = Order::query()->with('bookings.service.images')->where('client_id', auth()->user()->userable_id)->get();
         return $this->sendResponse((new Order)->get_orders($orders, request('lang')));
     }
 
@@ -90,6 +93,14 @@ class OrderController extends BaseController
                 $budget->update([
                     'balance' => $budget->balance + $item->service->price
                 ]);
+                $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
+                $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
+                Transactions::create([
+                    'user_id'  => $item->service->sponsor->user->id,
+                    'transaction_status_id' => $transaction_status->id,
+                    'transaction_type_id' => $transaction_type->id,
+                    'balance' => $item->service->price
+                ]);
                 $sponsor_price = $item->service->price;
             }
             else {
@@ -129,6 +140,14 @@ class OrderController extends BaseController
                 $budget = Budget::query()->where('user_id', $booking->service->sponsor->user->id)->first();
                 $budget->update([
                     'balance' => $budget->balance - $booking->price
+                ]);
+                $transaction_status = TransactionStatuses::query()->where('name_EN', 'cancel')->first();
+                $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
+                Transactions::create([
+                    'user_id'  => $booking->service->sponsor->user->id,
+                    'transaction_status_id' => $transaction_status->id,
+                    'transaction_type_id' => $transaction_type->id,
+                    'balance' => $booking->price
                 ]);
                 $sponsor_price = $booking->price;
             }

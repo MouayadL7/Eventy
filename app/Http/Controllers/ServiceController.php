@@ -5,11 +5,14 @@ use App\Models\service;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Categoury;
+use App\Models\ServiceImage;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Validator;
 
+
+
 class ServiceController extends BaseController
-{
+ {
     public function addservice(Request $request)
     {
         $data = $request->all();
@@ -22,42 +25,71 @@ class ServiceController extends BaseController
             'price' => 'required|numeric',
             'location' => 'required|string',
             'description' => 'required|string',
-            'image' => ['image', 'mimes:jpeg,png,bmp,jpg,gif,svg'], // Assuming profile_photo is an image field
+            'profile_image' => 'required|image|mimes:jpeg,png,bmp,jpg,gif,svg',
+            'images.*' => 'image|mimes:jpeg,png,bmp,jpg,gif,svg',
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
-            $serv_image = null;
-            if($request->hasFile('image'))
-            {
-                $image= $request->file('image');
-                $serv_image = time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('image'),$serv_image);
-                $serv_image = 'image/'.$serv_image ;
-            }
-            $data['image'] = $serv_image;
+        // Handle profile image upload
+        $profileImage = null;
+        if ($request->hasFile('profile_image')) {
+            $profileImage = time() . '_profile.' . $request->profile_image->getClientOriginalExtension();
+            $request->profile_image->move(public_path('images'), $profileImage);
+            $profileImage = 'images/' . $profileImage;
+        }
+        $data['profile_image'] = $profileImage;
 
-            Service::create($data);
+        // Create service
+        $service = Service::create($data);
+
+
+        // Handle multiple images upload
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images'), $imageName);
+                ServiceImage::create([
+                    'service_id' => $service->id,
+                    'image_path' => 'images/' . $imageName,
+                ]);
+            }
+        }
+
 
         return response()->json([
-            'message' => 'the service added  succefully..'
+            'message' => 'The service added successfully.'
         ]);
-
     }
 
     public function getallservices()
     {
-        $allservices= service::all();
+        $allServices = Service::with('images')->get();
         return response()->json([
-       'message' => 'Retrieved successfully',
-       'data' => $allservices,
-        ],200);
+            'message' => 'Retrieved successfully',
+            'data' =>  $allServices,
+        ], 200);
     }
 
-    public function showcategouryser(categoury $categoury)
+    public function getservicebyid($service_id)
+    {
+        $service = Service::with('images')->find($service_id);
+
+        if (!$service) {
+            return $this->sendError('There is no service with this ID');
+        }
+
+        $serviceDetails = $service->toArray();
+        $serviceDetails['images'] = $service->images->pluck('image_path');
+
+        return response()->json([
+            'message' => 'Service retrieved successfully',
+            'data' => $serviceDetails,
+        ], 200);
+    }
+    public function showcategouryser(Categoury $categoury)
     {
         $services = $categoury->services;
         return response()->json([
@@ -65,20 +97,5 @@ class ServiceController extends BaseController
         ], 200);
     }
 
-
-        /**
-     * Get all booked dates for a specific service.
-     *
-     * @param int $service_id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getBookedDates($service_id)
-    {
-        // Fetch all event dates where the service_id matches the given service_id
-        $bookedDates = Booking::where('service_id', $service_id)->pluck('event_date');
-
-        // Return the booked dates as a JSON response
-        return response()->json($bookedDates);
-    }
 
 }

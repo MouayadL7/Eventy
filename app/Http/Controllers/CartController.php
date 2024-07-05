@@ -27,7 +27,7 @@ class CartController extends BaseController
         $cart = $user->userable->cart;
 
         $cart_items = Cart_item::query()
-                            ->with('service')
+                            ->with('service.images')
                             ->where('cart_id', $cart->id)
                             ->select('id', 'event_date', 'service_id')
                             ->get();

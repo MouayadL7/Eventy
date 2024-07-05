@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('contact_number');
             $table->string('rating');
             $table->string('location');
-            $table->string('image')->nullable();
             $table->integer('price');
             $table->text('description')->nullable();
+            $table->string('profile_image')->nullable(); // Adding profile image column
             $table->timestamps();
         });
     }

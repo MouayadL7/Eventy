@@ -15,10 +15,10 @@ class CategouryController extends BaseController
     }
     public function show($id) {
         if ($id == Categoury::CATEGOURY_ORGANIZER) {
-            $categoury = Categoury::with('services.sponsor')->find($id);
+            $categoury = Categoury::with(['services.images', 'services.sponsor'])->find($id);
         }
         else {
-            $categoury = Categoury::with('services')->find($id);
+            $categoury = Categoury::with('services.images')->find($id);
         }
         return $this->sendResponse($categoury);
     }
