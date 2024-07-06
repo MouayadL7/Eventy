@@ -120,12 +120,6 @@ class ReportsController extends BaseController
     public function newReports()
     {
         $reports = Reports::query()->whereNull('read_at')->get();
-
-        if($reports->isEmpty())
-        {
-            return $this->sendresponse([]);
-        }
-
         return $this->sendresponse($reports);
     }
 }
