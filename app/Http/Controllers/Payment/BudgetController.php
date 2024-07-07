@@ -107,4 +107,16 @@ class BudgetController extends BaseController
         $budget = Budget::where('user_id', Auth::id())->select('balance')->first();
         return $this->sendResponse($budget);
     }
+
+    public function search()
+    {
+        $search = request('name');
+        $users  = DB::table('users')
+                    ->join('clients', 'users.id', '=', 'clients.id')
+                    ->select('users.id', DB::raw("CONCAT(first_name, ' ', last_name) AS name"), 'image')
+                    ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'REGEXP', $search)
+                    ->get();
+
+        return $this->sendResponse($users);
+    }
 }
