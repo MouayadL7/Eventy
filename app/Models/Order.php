@@ -28,10 +28,19 @@ class Order extends Model
 
     public function get_orders($orders, $lang)
     {
-        foreach ($orders as $order)
+        foreach ($orders as $key => $order)
         {
-            $order['order_state_name'] = (new OrderState)->get_order_state($order->order_state_id, $lang);
+            $orders[$key] = $this->get_order($order, $lang);
         }
         return $orders;
+    }
+
+    public function get_order($order, $lang)
+    {
+        $order['num_of_bookings']  = $order->bookings->count();
+        $order['total_price']      = $order->bookings->pluck('price')->sum();
+        $order['order_state_name'] = (new OrderState)->get_order_state($order->order_state_id, $lang);
+
+        return $order;
     }
 }

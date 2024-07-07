@@ -75,6 +75,7 @@ Route::middleware('auth:sanctum')->group (function(){
 
         // Budget
         Route::post('budget/charge', [BudgetController::class, 'charge']);
+        Route::get('budget/charge/search', [BudgetController::class, 'search']);
 
         //Add Servic
         Route::post('add', [Servicecontroller::class, 'addservice']);
