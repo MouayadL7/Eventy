@@ -52,12 +52,14 @@ class OrderController extends BaseController
     {
         $sponsor = auth()->user()->userable;
         if ($request->has('event_date')) {
-            $orders = DB::table('orders')
+            $orders = Order::query()
+                        ->with('bookings.service.images')
                         ->whereRaw('id IN (SELECT order_id FROM bookings WHERE service_id = ? AND bookings.event_date = ?)', [$sponsor->service_id, $request->event_date])
                         ->get();
         }
         else {
-            $orders = DB::table('orders')
+            $orders = Order::query()
+                        ->with('bookings.service.images')
                         ->whereRaw('id IN (SELECT order_id FROM bookings WHERE service_id = ?)', [$sponsor->service_id])
                         ->get();
         }
