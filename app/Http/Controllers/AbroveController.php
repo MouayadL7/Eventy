@@ -25,6 +25,7 @@ class AbroveController extends BaseController
                     ->join('users', 'abroves.sponsor_id', '=', 'users.id')
                     ->whereRaw('users.email_verified = ?', [1])
                     ->join('sponsors', 'users.userable_id', '=', 'sponsors.id')
+                    ->select('abroves.id', 'first_name', 'last_name', 'email', 'phone', 'work_experience', 'location', 'price', 'image', 'abroves.created_at as date')
                     ->get();
         return $this->sendResponse($abroves);
     }
@@ -50,7 +51,7 @@ class AbroveController extends BaseController
      */
     public function show($id)
     {
-        $abrove = Abrove::query()->with('sponsor.userable')->find($id);
+        $abrove = Abrove::with('sponsor.userable')->find($id);
         return $this->sendResponse($abrove);
     }
 

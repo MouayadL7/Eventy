@@ -16,4 +16,9 @@ class Abrove extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function get_info()
+    {
+        
+    }
 }
