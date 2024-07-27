@@ -37,7 +37,7 @@ class Sponsor extends Model
 
     public function averageRating()
     {
-        return $this->ratings()->avg('rating');
+        return $this->ratings->avg('rating');
     }
 
     public function clients()

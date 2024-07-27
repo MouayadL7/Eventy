@@ -126,9 +126,11 @@ Route::middleware('auth:sanctum')->group (function(){
             Route::get('/{categoury}', [CategouryController::class, 'show']);
         });
 
-        //rating
-        Route::post('organizers/{sponsor}/ratings', [RatingController::class, 'store']);
-        Route::get('rates/{sponsor}', [RatingController::class, 'sponserRate']);
+        // Rating
+        Route::prefix('rating')->group(function () {
+            Route::get('{id}', [RatingController::class, 'sponsorRate']);
+            Route::post('store', [RatingController::class, 'store']);
+        });
 
         Route::prefix('favourites')->group(function () {
         // Add a service to favorites

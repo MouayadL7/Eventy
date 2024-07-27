@@ -2,49 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Sponsor;
 use App\Models\Favourite;
 use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class RatingController extends Controller
+class RatingController extends BaseController
 {
-    public function store(Request $request, Sponsor $sponsor)
+    public function store(Request $request)
     {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
+        $validator = Validator::make($request->all(), [
+            'sponsor_id' => ['required', 'exists:users,id'],
+            'rating' => ['required', 'integer', 'min:1', 'max:5']
         ]);
-        $client = auth()->user()->userable;
-        $rate = Rating::where('client_id', $client->id)
-            ->where('sponsor_id', $sponsor->id)
-            ->first();
-        if ($rate != null) {
-            return response()->json([
-                'error' => 'you cannot rate the same person again'
-            ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors());
         }
+
+        $client = auth()->user()->userable;
+        $sponsor = User::find($request->sponsor_id)->userable;
+
+        if ($client->hasRated($sponsor->id)) {
+            return $this->sendError('You cannot rate the same person again');
+        }
+
         $rate = Rating::create([
             'client_id' => $client->id,
             'sponsor_id' => $sponsor->id,
             'rating' => $request->rating
         ]);
 
-
-        return response()->json([
-            'message' => 'Thank you for rating',
-            'rate' => $rate->rating
-        ], 200);
+        return $this->sponsorRate($request->sponsor_id);
     }
 
-    public function sponserRate(Sponsor $sponsor) {
-        // Get the rates from the pivot table
-        $rates = $sponsor->clients()->get()->pluck('pivot.rating');
-
-        // Calculate the average rate within the range of 1 to 5
-        $averageRate = $rates->filter(function ($rate) {
-            return $rate >= 1 && $rate <= 5;
-        })->avg();
-        return $averageRate;
+    public function sponsorRate($id) {
+        $sponsor = User::find($id)->userable;
+        return $this->sendResponse([
+            'rating' => $sponsor->averageRating()
+        ]);
     }
 
     public function myRates() {

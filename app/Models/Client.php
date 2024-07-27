@@ -55,4 +55,9 @@ class Client extends Model
     {
         return $this->favourites()->where('service_id', $service_id)->exists();
     }
+
+    public function hasRated($sponsor_id)
+    {
+        return $this->rates()->where('sponsor_id', $sponsor_id)->exists();
+    }
 }
