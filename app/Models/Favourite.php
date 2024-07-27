@@ -24,4 +24,19 @@ class Favourite extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function get_list($favourites)
+    {
+        foreach ($favourites as $key => $favourite) {
+            $favourites[$key] = $this->get_info($favourite);
+        }
+        return $favourites;
+    }
+
+    public function get_info($favourite)
+    {
+        return [
+            'id' => $favourite->id,
+            'service' =>$favourite->service
+        ];
+    }
 }

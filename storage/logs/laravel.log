@@ -13510,3 +13510,59 @@ Did you mean one of these?
 #29 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
 #30 {main}
 "} 
+[2024-07-27 14:36:14] local.ERROR: Command "route:optimization" is not defined.
+
+Did you mean one of these?
+    make:notification
+    route:cache
+    route:clear
+    route:list {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"route:optimization\" is not defined.
+
+Did you mean one of these?
+    make:notification
+    route:cache
+    route:clear
+    route:list at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php:737)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('route:optimizat...')
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 
+[2024-07-27 14:36:33] local.ERROR: Command "optimization" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"optimization\" is not defined. at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php:737)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('optimization')
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 
+[2024-07-27 14:42:52] local.ERROR: syntax error, unexpected token "}", expecting "(" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \"(\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:28)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:43:31] local.ERROR: syntax error, unexpected token "}", expecting variable or "{" or "$" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting variable or \"{\" or \"$\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:43:40] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:43:58] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:44:14] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:44:25] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 
+[2024-07-27 14:44:49] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Favourite.php:33)
+[stacktrace]
+#0 {main}
+"} 

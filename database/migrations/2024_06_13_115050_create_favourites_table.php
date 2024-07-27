@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('favourites', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-        $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
+        $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+        $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
         // $table->unsignedBigInteger('client_id');
         // $table->unsignedBigInteger('service_id');
         // $table->timestamps();
@@ -24,7 +24,7 @@ return new class extends Migration
         // $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
         // Ensure each client can favorite a service only once
-        $table->unique(['user_id', 'service_id']);
+        $table->unique(['client_id', 'service_id']);
         $table->timestamps();
     });
     }

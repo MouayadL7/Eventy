@@ -45,4 +45,14 @@ class Client extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
+
+    public function hasFav($service_id)
+    {
+        return $this->favourites()->where('service_id', $service_id)->exists();
+    }
 }

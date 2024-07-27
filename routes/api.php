@@ -91,6 +91,8 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::get('allservice', [Servicecontroller::class, 'getallservices']);
     });
 
+
+
     Route::middleware(['auth:sanctum', 'can:isSponsor'])->group(function() {
         // Order State
         Route::post('order/{orderId}/state', [OrderStateController::class, 'updateOrderState']);
@@ -128,13 +130,13 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::post('organizers/{sponsor}/ratings', [RatingController::class, 'store']);
         Route::get('rates/{sponsor}', [RatingController::class, 'sponserRate']);
 
-        Route::prefix('favorites')->group(function () {
+        Route::prefix('favourites')->group(function () {
         // Add a service to favorites
             Route::post('add', [FavouriteController::class, 'add']);
         // Remove a service from favorites
-            Route::post('remove', [FavouriteController::class, 'remove'])->name('favorites.remove');
+            Route::delete('remove/{id}', [FavouriteController::class, 'remove']);
         // List favorite services
-            Route::get('/', [FavouriteController::class, 'list'])->name('favorites.list');
+            Route::get('/', [FavouriteController::class, 'list']);
         });
 
         // Cart routes

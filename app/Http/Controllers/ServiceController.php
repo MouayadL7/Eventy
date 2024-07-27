@@ -84,10 +84,11 @@ class ServiceController extends BaseController
         $serviceDetails = $service->toArray();
         $serviceDetails['images'] = $service->images->pluck('image_path');
 
-        return response()->json([
-            'message' => 'Service retrieved successfully',
-            'data' => $serviceDetails,
-        ], 200);
+        if ($service->categoury_id == Categoury::CATEGOURY_ORGANIZER) {
+            $serviceDetails['sponsor'] = $service->sponsor;
+        }
+
+        return $this->sendResponse($serviceDetails);
     }
     public function showcategouryser(Categoury $categoury)
     {
