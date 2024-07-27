@@ -48,58 +48,72 @@ class BudgetController extends BaseController
 
     public function pay(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'balance' => ['required', 'numeric','min:0'],
-        ]);
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'balance' => ['required', 'numeric','min:0'],
+            ]);
 
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors());
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors());
+            }
+
+            $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
+            $transaction_type = TransactionTypes::query()->where('name_EN', 'pay Cash')->first();
+            Transactions::create([
+                'user_id'  => Auth::id(),
+                'transaction_status_id' => $transaction_status->id,
+                'transaction_type_id' => $transaction_type->id,
+                'balance' => $request->balance + $request->sponsor_price,
+            ]);
+
+            $budget = Budget::where('user_id', Auth::id())->first();
+            $budget->update(['balance' => $budget->balance - $request->balance - $request->sponsor_price]);
+
+            $admin_budget = Budget::where('user_id', 1)->first();
+            $admin_budget->update(['balance' => $admin_budget->balance + $request->balance]);
+
+            DB::commit();
+            return $this->sendResponse($budget);
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return $this->sendError($ex->getMessage());
         }
-
-        $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
-        $transaction_type = TransactionTypes::query()->where('name_EN', 'pay Cash')->first();
-        Transactions::create([
-            'user_id'  => Auth::id(),
-            'transaction_status_id' => $transaction_status->id,
-            'transaction_type_id' => $transaction_type->id,
-            'balance' => $request->balance + $request->sponsor_price,
-        ]);
-
-        $budget = Budget::where('user_id', Auth::id())->first();
-        $budget->update(['balance' => $budget->balance - $request->balance - $request->sponsor_price]);
-
-        $admin_budget = Budget::where('user_id', 1)->first();
-        $admin_budget->update(['balance' => $admin_budget->balance + $request->balance]);
-
-        return $this->sendResponse($budget);
     }
 
     public function cancel(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'balance' => ['required', 'numeric','min:0'],
-        ]);
+        DB::beginTransaction();
+        try {
+            $validator = Validator::make($request->all(), [
+                'balance' => ['required', 'numeric','min:0'],
+            ]);
 
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors());
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors());
+            }
+
+            $transaction_status = TransactionStatuses::query()->where('name_EN', 'cancel')->first();
+            $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
+            Transactions::create([
+                'user_id'  => Auth::id(),
+                'transaction_status_id' => $transaction_status->id,
+                'transaction_type_id' => $transaction_type->id,
+                'balance' => $request->balance + $request->sponsor_price,
+            ]);
+
+            $budget = Budget::where('user_id', Auth::id())->first();
+            $budget->update(['balance' => $budget->balance + $request->balance + $request->sponsor_price]);
+
+            $admin_budget = Budget::where('user_id', 1)->first();
+            $admin_budget->update(['balance' => $admin_budget->balance - $request->balance]);
+
+            DB::commit();
+            return $this->sendResponse($budget);
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return $this->sendError($ex->getMessage());
         }
-
-        $transaction_status = TransactionStatuses::query()->where('name_EN', 'cancel')->first();
-        $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
-        Transactions::create([
-            'user_id'  => Auth::id(),
-            'transaction_status_id' => $transaction_status->id,
-            'transaction_type_id' => $transaction_type->id,
-            'balance' => $request->balance + $request->sponsor_price,
-        ]);
-
-        $budget = Budget::where('user_id', Auth::id())->first();
-        $budget->update(['balance' => $budget->balance + $request->balance + $request->sponsor_price]);
-
-        $admin_budget = Budget::where('user_id', 1)->first();
-        $admin_budget->update(['balance' => $admin_budget->balance - $request->balance]);
-
-        return $this->sendResponse($budget);
     }
 
     public function get_budget()

@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrderState extends Model
 {
     use HasFactory;
+
+    const OrderState_Pending = 1;
+    const OrderState_In_Preparation = 2;
+    const OrderState_Done = 3;
+
     protected $fillable = ['order_id', 'state'];
 
     public function order(): BelongsTo
