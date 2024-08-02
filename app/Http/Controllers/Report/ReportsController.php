@@ -8,6 +8,7 @@ use App\Http\Requests\StoreReportRequest;
 use App\Mail\AdminReply;
 use App\Models\Reports;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,12 @@ class ReportsController extends BaseController
             'body'    => $request->body,
             'title'   => $request->title,
         ]);
+
+        // To notify the user
+        $user = User::find(1);
+        $auth_user = auth()->user()->userable;
+        $user_name = $auth_user->first_name . ' ' . $auth_user->last_name;
+        $user->notify(new UserNotification('New Report Received', 'Attention: A report from ' . $user_name . ' has been sent to your dashboard. Please check it at your earliest convenience', ['report_id' => $report->id]));
 
         return $this->sendResponse($report);
     }

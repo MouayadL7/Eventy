@@ -9,6 +9,7 @@ use App\Models\Transactions;
 use App\Models\TransactionStatuses;
 use App\Models\TransactionTypes;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Exception;
 use Google\Service\Spanner\Transaction;
 use Illuminate\Http\Request;
@@ -42,6 +43,10 @@ class BudgetController extends BaseController
 
         $budget = Budget::where('user_id', $request->user_id)->first();
         $budget->update(['balance' => $budget->balance + $request->balance]);
+
+        // To notify the user
+        $user = User::find($request->user_id);
+        $user->notify(new UserNotification('Charge Budget', 'Your wallet has been charged with '. $request->balance, []));
 
         return $this->sendResponse($budget);
     }

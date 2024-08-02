@@ -21,6 +21,7 @@ use App\Http\Controllers\{
     RatingController,
     SearchController,
 };
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Payment\BudgetController;
 use App\Http\Controllers\Report\ReportsController;
 use App\Models\service;
@@ -66,7 +67,8 @@ Route::middleware('auth:sanctum')->group (function(){
     Route::resource('conversation', ConversationController::class);
     Route::resource('message', MessageController::class);
 
-
+    // Notification
+    Route::get('notifications', [NotificationController::class, 'myNotifications']);
 
     Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
         // Report

@@ -7,6 +7,8 @@ use App\Http\Requests\MessageRequest;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Recipiants;
+use App\Models\User;
+use App\Notifications\UserNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -76,6 +78,12 @@ class MessageController extends BaseController
             DB::commit();
 
             $message['user'] = $message->user->userable;
+
+            // To notify the user
+            $recipient_user = User::find($user_id);
+            $userable = $user->userable;
+            $user_name = $userable->first_name . ' ' . $userable->last_name;
+            $recipient_user->notify(new UserNotification($user_name, $request->message, ['conversation_id' => $conversation->id, 'image' => $userable->image]));
 
             return $this->sendResponse($this->show_message($message));
         } catch (Exception $ex) {

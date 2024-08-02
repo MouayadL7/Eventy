@@ -14,6 +14,7 @@ use App\Models\Transactions;
 use App\Models\TransactionStatuses;
 use App\Models\TransactionTypes;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -49,7 +50,8 @@ class OrderController extends BaseController
     {
         $orders = Order::query()->with('bookings.service.images')
             ->where('client_id', auth()->user()->userable_id)
-            ->where('order_state_id', '<>', OrderState::OrderState_Done)
+            ->where('order_state_id', '<>', OrderState::ORDERSTATE_DONE)
+            ->where('order_state_id', '<>',OrderState::ORDERSTATE_CANCELED)
             ->get();
         return $this->sendResponse((new Order)->get_orders($orders, request('lang')));
     }
@@ -61,17 +63,29 @@ class OrderController extends BaseController
             $orders = Order::query()
                         ->with('bookings.service.images')
                         ->whereRaw('id IN (SELECT order_id FROM bookings WHERE service_id = ? AND bookings.event_date = ?)', [$sponsor->service_id, $request->event_date])
+                        ->where('order_state_id', '<>', OrderState::ORDERSTATE_CANCELED)
                         ->get();
         }
         else {
             $orders = Order::query()
                         ->with('bookings.service.images')
                         ->whereRaw('id IN (SELECT order_id FROM bookings WHERE service_id = ?)', [$sponsor->service_id])
-                        ->where('order_state_id', '<>', OrderState::OrderState_Done)
+                        ->where('order_state_id', '<>', OrderState::ORDERSTATE_DONE)
+                        ->where('order_state_id', '<>', OrderState::ORDERSTATE_CANCELED)
                         ->get();
         }
 
         return $this->sendResponse((new Order)->get_orders($orders, request('lang')));
+    }
+
+    public function show($id)
+    {
+        $order = Order::with('bookings.service.images')->find($id);
+        if (is_null($order)) {
+            return $this->sendError('There is no order with this ID');
+        }
+
+        return $this->sendError($order);
     }
 
     /**
@@ -92,6 +106,7 @@ class OrderController extends BaseController
 
             $sponsor_price = 0;
             $total_price = 0;
+            $sponsor = null;
             foreach ($cartItems as $item) {
                 Booking::create([
                     'service_id' => $item->service_id,
@@ -104,6 +119,7 @@ class OrderController extends BaseController
                 }
                 else {
                     $sponsor_price = $item->service->price;
+                    $sponsor = $item->service->sponsor->user;
                 }
                 $item->delete();
             }
@@ -111,9 +127,14 @@ class OrderController extends BaseController
             $request = new Request();
             $request['balance'] = $total_price;
             $request['sponsor_price'] = $sponsor_price;
-            $response = (new BudgetController)->pay($request);
+            (new BudgetController)->pay($request);
+
+            // To notify the user
+            $user_name = $user->first_name . ' ' . $user->last_name;
+            $sponsor->notify(new UserNotification('You Have a New Order!', 'A new order has been placed by ' . $user_name . '. Click here to view the order and start preparing.', ['order_id' => $order->id]));
 
             DB::commit();
+
             return $this->sendResponse($order);
         } catch (Exception $ex) {
             DB::rollBack();
@@ -148,14 +169,21 @@ class OrderController extends BaseController
                 }
             }
 
-            if ($order->order_state_id == OrderState::OrderState_In_Preparation) {
+            if ($order->order_state_id == OrderState::ORDERSTATE_IN_PREPARATION) {
                 $daysSinceUpdated = $order->updated_at->diffInDays(Carbon::now());
                 if ($daysSinceUpdated >= 4) {
                     return $this->sendError('You cannot delete this order because it has been 4 days since it was ordered.');
                 }
                 else {
                     $total_price = $total_price - ($total_price * (25 * $daysSinceUpdated) / 100);
-                    $sponsor_price = $sponsor_price - ($sponsor_price * (25 * $daysSinceUpdated) / 100);
+                    $sponsor_get = ($sponsor_price * (25 * $daysSinceUpdated) / 100);
+                    $sponsor_price = $sponsor_price - $sponsor_get;
+                    if ($sponsor_get > 0) {
+                        (new BudgetController)->charge(new Request([
+                            'balance' => $sponsor_price,
+                            'user_id' => Auth::id()
+                        ]));
+                    }
                 }
             }
 
@@ -164,7 +192,8 @@ class OrderController extends BaseController
                 'sponsor_price' => $sponsor_price
             ]));
 
-            $order->delete();
+            (new OrderStateController)->updateOrderState(new Request(['state' => 'Canceled']), $id);
+
             DB::commit();
             return $this->sendResponse();
         } catch (Exception $ex) {

@@ -8,6 +8,8 @@ use App\Jobs\PayToSponsor;
 use App\Models\Booking;
 use App\Models\Order;
 use App\Models\OrderState;
+use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -67,7 +69,7 @@ class OrderStateController extends BaseController
         DB::beginTransaction();
         try {
             $validator = Validator::make($request->all(), [
-                'state' => 'required|in:In Preparation,Done'
+                'state' => 'required|in:In Preparation,Done,Canceled'
             ]);
 
             if ($validator->fails()) {
@@ -83,16 +85,16 @@ class OrderStateController extends BaseController
             if ($order->order_state_id == $order_state->id) {
                 return $this->sendError('The order is state already ' . $request->state);
             }
-            else if ($order->order_state_id == OrderState::OrderState_Done) {
+            else if ($order->order_state_id == OrderState::ORDERSTATE_DONE) {
                 return $this->sendError('You cannot update state of the order because it is Done');
             }
-            if ($order_state->id == OrderState::OrderState_In_Preparation) {
+            if ($order_state->id == OrderState::ORDERSTATE_IN_PREPARATION) {
                 dispatch(new PayToSponsor([
                     'order_id' => $order->id,
                     'sponsor_id' => Auth::id()
                 ]))->delay(now()->addDays(4));
             }
-            else {
+            else if ($order_state->id == OrderState::ORDERSTATE_DONE) {
                 $daysSinceUpdated = $order->updated_at->diffInDays(Carbon::now());
                 if ($daysSinceUpdated < 4) {
                     (new BudgetController)->charge(new Request([
@@ -101,8 +103,24 @@ class OrderStateController extends BaseController
                     ]));
                 }
             }
+            else {
+                $bookings = $order->bookings;
+                foreach ($bookings as $booking) {
+                    $booking->delete();
+                }
+            }
 
             $order->update(['order_state_id' => $order_state->id]);
+
+            // To notify the user
+            $user = User::where('userable_id', $order->client_id)->first();
+            $orderId = $order->id;
+            $orders = $user->userable->orders;
+            $orderIndex = $orders->search(function ($order) use ($orderId) {
+                return $order->id === $orderId;
+            });
+            $user->notify(new UserNotification('Your Order Status Has Changed', 'The status of your order #' . $orderIndex . ' has changed to '. $request->state, ['order_id' => $orderId]));
+
             DB::commit();
             return $this->sendResponse($order);
         } catch (Exception $ex) {

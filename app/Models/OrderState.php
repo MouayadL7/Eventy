@@ -10,9 +10,10 @@ class OrderState extends Model
 {
     use HasFactory;
 
-    const OrderState_Pending = 1;
-    const OrderState_In_Preparation = 2;
-    const OrderState_Done = 3;
+    const ORDERSTATE_PENDING = 1;
+    const ORDERSTATE_IN_PREPARATION = 2;
+    const ORDERSTATE_DONE = 3;
+    const ORDERSTATE_CANCELED = 4;
 
     protected $fillable = ['order_id', 'state'];
 

@@ -14040,3 +14040,239 @@ Did you mean one of these?
 #43 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
 #44 {main}
 "} 
+[2024-08-01 14:11:25] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 14:11:33] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 14:11:45] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 14:11:57] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 14:12:11] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 14:12:59] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Order.php:19)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:20:01] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:20:12] local.ERROR: syntax error, unexpected token "protected", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:20:27] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:21:02] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:21:02] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 22:21:44] local.ERROR: syntax error, unexpected variable "$fillable", expecting "=" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected variable \"$fillable\", expecting \"=\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\OrderState.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-01 23:33:16] local.ERROR: Method App\Http\Controllers\Notification\NotificationController::sendResponse does not exist. {"userId":2,"exception":"[object] (BadMethodCallException(code: 0): Method App\\Http\\Controllers\\Notification\\NotificationController::sendResponse does not exist. at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php:68)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Http\\Controllers\\Notification\\NotificationController.php(17): Illuminate\\Routing\\Controller->__call('sendResponse', Array)
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Notification\\NotificationController->myNotifications()
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('myNotifications', Array)
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Notification\\NotificationController), 'myNotifications')
+#4 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#5 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(806): Illuminate\\Routing\\Route->run()
+#6 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#7 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#8 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(159): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(125): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#11 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(87): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#12 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#13 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'sanctum')
+#15 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#17 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#18 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#19 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#20 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#21 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#22 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#38 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#39 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#40 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
+#41 {main}
+"} 
+[2024-08-01 23:35:03] local.ERROR: Invalid service account: The file at 'C:\Users\LG\Desktop\Sarsara\Eventy\storage\app\project-1-e8c46-6dfdd7a873f1.json' is not readable {"userId":1,"exception":"[object] (Kreait\\Firebase\\Exception\\InvalidArgumentException(code: 0): Invalid service account: The file at 'C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\storage\\app\\project-1-e8c46-6dfdd7a873f1.json' is not readable at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\firebase-php\\src\\Firebase\\Factory.php:168)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\FirebaseProjectManager.php(76): Kreait\\Firebase\\Factory->withServiceAccount('C:\\\\Users\\\\LG\\\\Des...')
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\FirebaseProjectManager.php(33): Kreait\\Laravel\\Firebase\\FirebaseProjectManager->configure('app')
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\ServiceProvider.php(50): Kreait\\Laravel\\Firebase\\FirebaseProjectManager->project()
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(908): Kreait\\Laravel\\Firebase\\ServiceProvider::Kreait\\Laravel\\Firebase\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#4 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build(Object(Closure))
+#5 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Illuminate\\Container\\Container->resolve('Kreait\\\\Firebase...', Array, true)
+#6 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve('Kreait\\\\Firebase...', Array)
+#7 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(946): Illuminate\\Container\\Container->make('Kreait\\\\Firebase...', Array)
+#8 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(1066): Illuminate\\Foundation\\Application->make('Kreait\\\\Firebase...')
+#9 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(982): Illuminate\\Container\\Container->resolveClass(Object(ReflectionParameter))
+#10 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(943): Illuminate\\Container\\Container->resolveDependencies(Array)
+#11 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build('NotificationCha...')
+#12 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Illuminate\\Container\\Container->resolve('NotificationCha...', Array, true)
+#13 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve('NotificationCha...', Array)
+#14 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(946): Illuminate\\Container\\Container->make('NotificationCha...', Array)
+#15 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\ChannelManager.php(112): Illuminate\\Foundation\\Application->make('NotificationCha...')
+#16 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Manager.php(80): Illuminate\\Notifications\\ChannelManager->createDriver('NotificationCha...')
+#17 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(148): Illuminate\\Support\\Manager->driver('NotificationCha...')
+#18 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(106): Illuminate\\Notifications\\NotificationSender->sendToNotifiable(Object(App\\Models\\User), 'fd5a0aac-c84f-4...', Object(App\\Notifications\\UserNotification), 'NotificationCha...')
+#19 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Notifications\\NotificationSender->Illuminate\\Notifications\\{closure}()
+#20 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(101): Illuminate\\Notifications\\NotificationSender->withLocale(NULL, Object(Closure))
+#21 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(79): Illuminate\\Notifications\\NotificationSender->sendNow(Object(Illuminate\\Database\\Eloquent\\Collection), Object(App\\Notifications\\UserNotification))
+#22 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\ChannelManager.php(39): Illuminate\\Notifications\\NotificationSender->send(Object(Illuminate\\Database\\Eloquent\\Collection), Object(App\\Notifications\\UserNotification))
+#23 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\RoutesNotifications.php(18): Illuminate\\Notifications\\ChannelManager->send(Object(App\\Models\\User), Object(App\\Notifications\\UserNotification))
+#24 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Http\\Controllers\\Payment\\BudgetController.php(49): App\\Models\\User->notify(Object(App\\Notifications\\UserNotification))
+#25 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Payment\\BudgetController->charge(Object(Illuminate\\Http\\Request))
+#26 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('charge', Array)
+#27 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Payment\\BudgetController), 'charge')
+#28 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#29 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(806): Illuminate\\Routing\\Route->run()
+#30 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#31 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authorize.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authorize->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'isAdministrator')
+#33 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(159): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(125): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#37 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(87): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#38 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#39 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'sanctum')
+#41 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#44 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#45 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#46 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#47 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#48 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#57 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#58 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#59 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#60 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#61 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#62 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#63 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#64 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#65 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#66 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
+#67 {main}
+
+[previous exception] [object] (UnexpectedValueException(code: 0): The file at 'C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\storage\\app\\project-1-e8c46-6dfdd7a873f1.json' is not readable at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\beste\\json\\src\\Json.php:44)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\firebase-php\\src\\Firebase\\Factory.php(166): Beste\\Json::decodeFile('C:\\\\Users\\\\LG\\\\Des...', true)
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\FirebaseProjectManager.php(76): Kreait\\Firebase\\Factory->withServiceAccount('C:\\\\Users\\\\LG\\\\Des...')
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\FirebaseProjectManager.php(33): Kreait\\Laravel\\Firebase\\FirebaseProjectManager->configure('app')
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\kreait\\laravel-firebase\\src\\ServiceProvider.php(50): Kreait\\Laravel\\Firebase\\FirebaseProjectManager->project()
+#4 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(908): Kreait\\Laravel\\Firebase\\ServiceProvider::Kreait\\Laravel\\Firebase\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#5 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build(Object(Closure))
+#6 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Illuminate\\Container\\Container->resolve('Kreait\\\\Firebase...', Array, true)
+#7 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve('Kreait\\\\Firebase...', Array)
+#8 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(946): Illuminate\\Container\\Container->make('Kreait\\\\Firebase...', Array)
+#9 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(1066): Illuminate\\Foundation\\Application->make('Kreait\\\\Firebase...')
+#10 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(982): Illuminate\\Container\\Container->resolveClass(Object(ReflectionParameter))
+#11 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(943): Illuminate\\Container\\Container->resolveDependencies(Array)
+#12 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build('NotificationCha...')
+#13 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Illuminate\\Container\\Container->resolve('NotificationCha...', Array, true)
+#14 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve('NotificationCha...', Array)
+#15 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(946): Illuminate\\Container\\Container->make('NotificationCha...', Array)
+#16 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\ChannelManager.php(112): Illuminate\\Foundation\\Application->make('NotificationCha...')
+#17 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Manager.php(80): Illuminate\\Notifications\\ChannelManager->createDriver('NotificationCha...')
+#18 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(148): Illuminate\\Support\\Manager->driver('NotificationCha...')
+#19 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(106): Illuminate\\Notifications\\NotificationSender->sendToNotifiable(Object(App\\Models\\User), 'fd5a0aac-c84f-4...', Object(App\\Notifications\\UserNotification), 'NotificationCha...')
+#20 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Notifications\\NotificationSender->Illuminate\\Notifications\\{closure}()
+#21 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(101): Illuminate\\Notifications\\NotificationSender->withLocale(NULL, Object(Closure))
+#22 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\NotificationSender.php(79): Illuminate\\Notifications\\NotificationSender->sendNow(Object(Illuminate\\Database\\Eloquent\\Collection), Object(App\\Notifications\\UserNotification))
+#23 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\ChannelManager.php(39): Illuminate\\Notifications\\NotificationSender->send(Object(Illuminate\\Database\\Eloquent\\Collection), Object(App\\Notifications\\UserNotification))
+#24 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Notifications\\RoutesNotifications.php(18): Illuminate\\Notifications\\ChannelManager->send(Object(App\\Models\\User), Object(App\\Notifications\\UserNotification))
+#25 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Http\\Controllers\\Payment\\BudgetController.php(49): App\\Models\\User->notify(Object(App\\Notifications\\UserNotification))
+#26 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\Payment\\BudgetController->charge(Object(Illuminate\\Http\\Request))
+#27 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('charge', Array)
+#28 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Payment\\BudgetController), 'charge')
+#29 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#30 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(806): Illuminate\\Routing\\Route->run()
+#31 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#32 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authorize.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authorize->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'isAdministrator')
+#34 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(159): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(125): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#38 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(87): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#39 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#40 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'sanctum')
+#42 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#44 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#45 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#46 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#47 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#48 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#49 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#59 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#60 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#65 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#66 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#67 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
+#68 {main}
+"} 

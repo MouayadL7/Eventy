@@ -30,5 +30,10 @@ class OrderStateSeeder extends Seeder
             'name_EN' => 'Done',
             'name_AR' => 'تم القبول'
         ]);
+
+        OrderState::create([
+            'name_EN' => 'Canceled',
+            'name_AR' => 'تم الإلغاء'
+        ]);
     }
 }
