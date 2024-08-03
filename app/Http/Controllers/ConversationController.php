@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use App\Models\Conversation;
 use App\Models\Participant;
+use App\Models\Recipiants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class ConversationController extends BaseController
     {
         $user = auth()->user();
         $conversations = $user->conversations()->with([
-            'last_message:message',
+            'last_message',
             'participants' => function($builder) use ($user) {
                 $builder->where('participants.id', '<>', $user->id);
             }])
@@ -52,12 +53,27 @@ class ConversationController extends BaseController
      */
     public function show($id)
     {
-        $messages = Conversation::with(['participants' => function($builder) {
-            $builder->where('participants.id','<>', Auth::id());
-        }])
-        ->find($id)->messages;
-        return (new MessageController)->extracted_data($messages);
+        $user = Auth::user();
+        $conversation = $user->conversations()
+            ->with(['participants' => function($builder) use ($user) {
+            $builder->where('user_id', '<>', $user->id);
+        }])->find($id);
 
+        $messages = $conversation->messages()
+            ->where(function($query) use ($user) {
+                $query
+                    ->where(function($query) use ($user) {
+                        $query->where('user_id', $user->id)
+                            ->whereNull('deleted_at');
+                    })
+                    ->orWhereRaw('id IN (
+                        SELECT message_id FROM recipiants
+                        WHERE recipiants.message_id = messages.id
+                        AND recipiants.user_id = ?
+                        AND recipiants.deleted_at IS NULL
+                    )', [$user->id]);
+            })->get();
+        return (new MessageController)->extracted_data($messages);
     }
 
     /**
@@ -112,8 +128,24 @@ class ConversationController extends BaseController
             'id' => $conversation->id,
             'new_messages' => $conversation->new_messages,
             'date' => $conversation->created_at->format('Y-m-d H:i:s'),
-            'last_message' => $conversation->last_message->message,
         ];
+
+        if ($conversation->last_message->message == 'Message deleted') {
+            $conversation_data['last_message'] = 'Message deleted';
+        }
+        else {
+            if ($conversation->last_message->user_id == Auth::id()) {
+                $conversation_data['last_message'] = $conversation->last_message->message;
+            }
+            else {
+                if (Recipiants::where('message_id', $conversation->last_message_id)->exists()) {
+                    $conversation_data['last_message'] = $conversation->last_message->message;
+                }
+                else {
+                    $conversation_data['last_message'] = 'Message deleted';
+                }
+            }
+        }
 
         if (is_null($conversation->participants->first()))
             $conversation_data['participant'] = __('User');

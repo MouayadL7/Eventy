@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Transactions;
 use App\Models\TransactionStatuses;
+use App\Models\TransactionTypes;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,15 +20,20 @@ class TransactionsController extends BaseController
      */
     public function index(Request $request)
     {
-        $lang = \request('lang');
-        if ($request->has('user_id')) {
-            return $this->indexByUserId($request->user_id, $lang);
-        }
+        $transactions = (new Transactions)->getTransactionsForUserInMonth($request, request('lang'));
 
-        $transactions = Transactions::all();
-        $transactions = (new Transactions)->get_all_transactions($transactions, $lang);
+        $totalRecieveCash = (new Transactions)->getRecieveCash($transactions);
+        $totalPayCash     = (new Transactions)->getPayCash($transactions);
 
-        return $this->sendResponse($transactions);
+        $transactions = (new Transactions)->get_all_transactions($transactions, request('lang'));
+
+        $data = [
+            'transaction' => $transactions,
+            'total_recieve_cash' => $totalRecieveCash,
+            'total_pay_cash' => $totalPayCash
+        ];
+
+        return $this->sendResponse($data);
     }
 
     /**
@@ -72,19 +78,6 @@ class TransactionsController extends BaseController
         $transaction = $transaction->get_info($transaction, $lang);
 
         return $this->sendResponse($transaction);
-    }
-
-    public function indexByUserId(string $userId, $lang)
-    {
-        if (is_null(User::find($userId))) {
-            return $this->sendError(['message' => 'There is not user with this ID']);
-        }
-
-        $transactions = Transactions::where('user_id', $userId)->get();
-        $transactions = (new Transactions)->get_all_transactions($transactions, $lang);
-
-        return $this->sendResponse($transactions);
-
     }
 
     /**

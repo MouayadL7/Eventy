@@ -19,7 +19,9 @@ class NotificationController extends BaseController
         foreach($notifications as $key => &$notification)
         {
             $notifications[$key] = $this->show($notification);
-            dd($notification);
+            if (!$notification->read_at) {
+                $notification->markAsRead();
+            }
         }
 
         $notifications = $notifications->sortByDesc('date');
@@ -31,11 +33,11 @@ class NotificationController extends BaseController
     public function show($notification)
     {
         return [
-            'title' => $notification['data']['title'],
-            'body'  => $notification['data']['body'],
-            'data'  => $notification['data']['data'],
+            'title'   => $notification['data']['title'],
+            'body'    => $notification['data']['body'],
+            'data'    => $notification['data']['data'],
             'is_read' => ($notification->read_at == null) ? false : true,
-            'date' => $notification->created_at->format('Y-m-d H:i:s'),
+            'date'    => $notification->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }

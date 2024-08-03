@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Order;
+use App\Models\OrderState;
 use App\Models\PersonalAccessToken;
 use App\Models\Service;
 use App\Models\Sponsor;
@@ -117,10 +118,10 @@ class MonthlyReportController extends Controller
         $report['events_in_each_week'] = $weeks;
 
         // 13- number of events by status
-        $pendingEventsCount = Order::where('order_state_id', Order::ORDER_PENDING)->count();
-        $in_PreparationEventsCount = Order::where('order_state_id', Order::ORDER_IN_PREPARATION)->count();
-        $doneEventsCount = Order::where('order_state_id', Order::ORDER_DONE)->count();
-        $canceledEventsCount = Order::where('order_state_id', Order::ORDER_CANCELED)->count();
+        $pendingEventsCount = Order::where('order_state_id', OrderState::ORDERSTATE_PENDING)->count();
+        $in_PreparationEventsCount = Order::where('order_state_id', OrderState::ORDERSTATE_IN_PREPARATION)->count();
+        $doneEventsCount = Order::where('order_state_id', OrderState::ORDERSTATE_DONE)->count();
+        $canceledEventsCount = Order::where('order_state_id', OrderState::ORDERSTATE_CANCELED)->count();
         $report['total_events_by_status'] = [
             'Pending' => $pendingEventsCount,
             'In_Preparation' => $in_PreparationEventsCount,

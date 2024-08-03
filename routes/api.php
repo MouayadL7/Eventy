@@ -23,6 +23,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Payment\BudgetController;
+use App\Http\Controllers\Payment\TransactionsController;
 use App\Http\Controllers\Report\ReportsController;
 use App\Models\service;
 
@@ -64,8 +65,15 @@ Route::middleware('auth:sanctum')->group (function(){
     Route::get('order', [OrderController::class, 'index']);
 
 
-    Route::resource('conversation', ConversationController::class);
-    Route::resource('message', MessageController::class);
+    Route::prefix('conversation')->group(function () {
+        Route::get('', [ConversationController::class, 'index']);
+        Route::get('{id}', [ConversationController::class, 'show']);
+        Route::delete('{id}', [ConversationController::class, 'destroy']);
+    });
+    Route::prefix('message')->group(function () {
+        Route::post('store', [MessageController::class, 'store']);
+        Route::delete('{id}', [MessageController::class, 'destroy']);
+    });
 
     // Notification
     Route::get('notifications', [NotificationController::class, 'myNotifications']);
@@ -91,6 +99,9 @@ Route::middleware('auth:sanctum')->group (function(){
 
         // Service
         Route::get('allservice', [Servicecontroller::class, 'getallservices']);
+
+        // Transactions
+        Route::get('transactions', [TransactionsController::class, 'index']);
     });
 
 

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\UserNotification;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -69,7 +70,7 @@ class MessageController extends BaseController
                 'message' => $request->message
             ]);
 
-            $message->recipiants()->attach($user_id);
+            $message->recipiants()->attach([$user_id, Auth::id()]);
 
             $conversation->update([
                 'last_message_id' => $message->id,
@@ -120,8 +121,18 @@ class MessageController extends BaseController
      */
     public function destroy($id)
     {
-        Recipiants::query()->where('message_id', $id)->delete();
-        Message::query()->find($id)->delete();
+        $message = Message::find($id);
+        if ($message->user_id == Auth::id()) {
+            Recipiants::where([
+                'message_id' => $id,
+            ])->delete();
+        }
+        else {
+            Recipiants::where([
+                'user_id' => Auth::id(),
+                'message_id' => $id,
+            ])->delete();
+        }
 
         return $this->sendResponse();
     }
