@@ -102,7 +102,7 @@ class AbroveController extends BaseController
                 'contact_number' => $sponsor->phone,
                 'rating' => 0,
                 'location' => $sponsor->userable->location,
-                'image' => $sponsor->userable->image,
+                'profile_image' => $sponsor->userable->image,
                 'price' => $abrove->price,
                 'description' => $sponsor->userable->work_experience
             ]);

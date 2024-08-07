@@ -24,10 +24,10 @@ class ResetPasswordController extends BaseController
             'email'=>'required|email|exists:users,email',
         ]);
 
-            if ($validator->fails())
-            {
-                return $this->sendError($validator->errors());
-            }
+        if ($validator->fails())
+        {
+            return $this->sendError($validator->errors());
+        }
 
         //Delete all old codes that user send before.
         ResetCodePassword::query()->where('email', $request['email'])->delete();
@@ -39,9 +39,9 @@ class ResetPasswordController extends BaseController
         //Create a new code
         $codeData = ResetCodePassword::query()->create($data);
 
-
         //Send email to user
         Mail::to($request['email'])->send(new SendCodeResetPassword($codeData['code']));
+
         return $this->sendResponse([]);
     }
 
@@ -71,7 +71,7 @@ class ResetPasswordController extends BaseController
 
         return $this->sendResponse([]);
     }
-    
+
     public function userResetPassword(Request $request) : JsonResponse
     {
         $input = $request->all();

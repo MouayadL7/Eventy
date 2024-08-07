@@ -75,6 +75,12 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::delete('{id}', [MessageController::class, 'destroy']);
     });
 
+    //categories
+    Route::prefix('categories')->group(function () {
+        Route::get('/', [CategouryController::class, 'index']);
+        Route::get('/{categoury}', [CategouryController::class, 'show']);
+    });
+
     // Notification
     Route::get('notifications', [NotificationController::class, 'myNotifications']);
 
@@ -131,12 +137,6 @@ Route::middleware('auth:sanctum')->group (function(){
        //search and filter
             Route::get('search', [SearchController::class, 'search']);
             Route::get('filter', [SearchController::class, 'filter']);
-        });
-
-        //categories
-        Route::prefix('categories')->group(function () {
-            Route::get('/', [CategouryController::class, 'index']);
-            Route::get('/{categoury}', [CategouryController::class, 'show']);
         });
 
         // Rating
