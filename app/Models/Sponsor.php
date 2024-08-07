@@ -56,4 +56,16 @@ class Sponsor extends Model
     {
         return $this->hasOne(Abrove::class);
     }
+
+    public function get_info()
+    {
+        return [
+            'id' => $this->user->id,
+            'name' => $this->first_name . ' ' . $this->last_name,
+            'work_experience' => $this->work_experience,
+            'location' => $this->location,
+            'image' => $this->image,
+            'rating' => $this->averageRating() == null ? 0 : $this->averageRating()
+        ];
+    }
 }

@@ -60,4 +60,16 @@ class Client extends Model
     {
         return $this->rates()->where('sponsor_id', $sponsor_id)->exists();
     }
+
+    public function get_info()
+    {
+        return [
+            'id' => $this->user->id,
+            'name' => $this->first_name . ' ' . $this->last_name,
+            'address' => $this->address,
+            'gender' => $this->gender,
+            'image' => $this->image
+        ];
+    }
+
 }

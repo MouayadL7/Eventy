@@ -15370,3 +15370,77 @@ Did you mean one of these?
 #31 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\LG\\\\Des...')
 #32 {main}
 "} 
+[2024-08-07 14:43:26] local.ERROR: Unclosed '{' on line 12 {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Unclosed '{' on line 12 at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Client.php:68)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:44:38] local.ERROR: syntax error, unexpected token "}", expecting ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \";\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Client.php:67)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:45:29] local.ERROR: syntax error, unexpected token "]", expecting identifier or variable or "{" or "$" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\", expecting identifier or variable or \"{\" or \"$\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Client.php:69)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:47:21] local.ERROR: syntax error, unexpected token "]", expecting identifier or variable or "{" or "$" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\", expecting identifier or variable or \"{\" or \"$\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:64)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:48:28] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:67)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:48:32] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:67)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:48:55] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:68)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:49:23] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:69)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:49:29] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:69)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:51:58] local.ERROR: syntax error, unexpected identifier "Route" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected identifier \"Route\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\routes\\api.php:70)
+[stacktrace]
+#0 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(511): Illuminate\\Routing\\RouteFileRegistrar->register('C:\\\\Users\\\\LG\\\\Des...')
+#1 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(465): Illuminate\\Routing\\Router->loadRoutes('C:\\\\Users\\\\LG\\\\Des...')
+#2 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php(194): Illuminate\\Routing\\Router->group(Array, 'C:\\\\Users\\\\LG\\\\Des...')
+#3 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Providers\\RouteServiceProvider.php(32): Illuminate\\Routing\\RouteRegistrar->group('C:\\\\Users\\\\LG\\\\Des...')
+#4 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Providers\\RouteServiceProvider->App\\Providers\\{closure}()
+#5 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#7 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#8 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#9 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(120): Illuminate\\Container\\Container->call(Object(Closure))
+#10 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(45): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->loadRoutes()
+#11 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->Illuminate\\Foundation\\Support\\Providers\\{closure}()
+#12 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#13 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#14 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#15 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#16 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php(119): Illuminate\\Container\\Container->call(Object(Closure))
+#17 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1037): Illuminate\\Support\\ServiceProvider->callBootedCallbacks()
+#18 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1015): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\RouteServiceProvider))
+#19 [internal function]: Illuminate\\Foundation\\Application->Illuminate\\Foundation\\{closure}(Object(App\\Providers\\RouteServiceProvider), 33)
+#20 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1014): array_walk(Array, Object(Closure))
+#21 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#22 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(263): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#23 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(447): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#24 C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#25 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 {main}
+"} 
+[2024-08-07 14:58:30] local.ERROR: syntax error, unexpected token "return" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"return\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:63)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-07 14:59:23] local.ERROR: syntax error, unexpected token "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"]\" at C:\\Users\\LG\\Desktop\\Sarsara\\Eventy\\app\\Models\\Sponsor.php:69)
+[stacktrace]
+#0 {main}
+"} 

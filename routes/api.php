@@ -25,6 +25,7 @@ use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Payment\BudgetController;
 use App\Http\Controllers\Payment\TransactionsController;
 use App\Http\Controllers\Report\ReportsController;
+use App\Http\Controllers\User\UserController;
 use App\Models\service;
 
 /*
@@ -64,6 +65,8 @@ Route::middleware('auth:sanctum')->group (function(){
 
     Route::get('order', [OrderController::class, 'index']);
 
+    // Profile
+    Route::get('user/profile', [UserController::class, 'get_profile']);
 
     Route::prefix('conversation')->group(function () {
         Route::get('', [ConversationController::class, 'index']);
