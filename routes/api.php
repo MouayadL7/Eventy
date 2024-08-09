@@ -87,6 +87,12 @@ Route::middleware('auth:sanctum')->group (function(){
     // Notification
     Route::get('notifications', [NotificationController::class, 'myNotifications']);
 
+    //services .. search and filter
+    Route::prefix('services')->group(function () {
+        Route::get('search', [SearchController::class, 'search']);
+        Route::get('filter', [SearchController::class, 'filter']);
+    });
+
     Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
         // Report
         Route::post('report/reply', [ReportsController::class, 'reply']);
@@ -131,16 +137,6 @@ Route::middleware('auth:sanctum')->group (function(){
 
         // Report
         Route::post('report/create', [ReportsController::class, 'store']);
-
-        //services
-        Route::prefix('services')->group(function () {
-
-            Route::get('service_categoury/{categoury}', [Servicecontroller::class, 'showcategouryser']);
-
-       //search and filter
-            Route::get('search', [SearchController::class, 'search']);
-            Route::get('filter', [SearchController::class, 'filter']);
-        });
 
         // Rating
         Route::prefix('rating')->group(function () {

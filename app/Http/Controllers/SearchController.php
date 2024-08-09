@@ -7,111 +7,89 @@ use Illuminate\Http\Request;
 use App\Models\Categoury;
 use Illuminate\Support\Facades\Validator;
 
-class SearchController extends Controller
+class SearchController extends BaseController
 {
  /**
      * Search services by name or type.
      *
-     * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
-        // Define custom error messages for validation
-        $messages = [
-            'search_query.required' => 'The search query is required.',
-            'search_query.string' => 'The search query must be a string.',
-        ];
-
-        // Validate the request parameters
+        // Validate the search parameters
         $validator = Validator::make($request->all(), [
-            'search_query' => 'required|string',
-        ], $messages);
+            'name' => 'nullable|string',
+            'type' => 'nullable|string',
+        ]);
 
-        // Check if validation fails
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first()], 400);
+            return $this->sendError($validator->errors());
         }
 
-        // Retrieve the search query from the request
-        $searchQuery = $request->input('search_query');
+        // Build the search query
+        $query = Service::query();
 
-        // Start building the query to search for services
-        $services = service::query();
-
-        // Apply search query if provided
-        if ($searchQuery) {
-            $services->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%' . $searchQuery . '%')
-                      ->orWhere('type', 'like', '%' . $searchQuery . '%');
-            });
+        if (!empty($request['name'])) {
+            $query->where('name', 'like', '%' . $request['name'] . '%');
         }
 
-        // Retrieve search results
-        $searchResults = $services->get();
+        if (!empty($request['type'])) {
+            $query->where('type', 'like', '%' . $request['type'] . '%');
+        }
 
-        // Return the search results as JSON response
-        return response()->json($searchResults);
+        $services = $query->get();
+
+        // Check if services are found
+        if ($services->isEmpty()) {
+            return $this->sendError('No services found matching the criteria.');
+        }
+
+        return $this->sendResponse($services);
     }
- /**
-     * Filter services by category, location, and price.
+
+    /**
+     * Filter services by category and price range.
      *
-     * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     public function filter(Request $request)
     {
-        // Define custom error messages for validation
-        $messages = [
-            'categoury_id.exists' => 'The selected categoury does not exist.',
-            'location.string' => 'The location must be a string.',
-            'min_price.numeric' => 'The minimum price must be a number.',
-            'max_price.numeric' => 'The maximum price must be a number.',
-        ];
-
-        // Validate the request parameters
-        $validator = Validator::make($request->all(), [
-            'categoury_id' => 'required|exists:categouries,id',
-            'location' => 'nullable|string',
+        // Validate the filter parameters
+        $validator = Validator::make($request->all(),[
+            'categoury_id' => 'nullable|integer',
             'min_price' => 'nullable|numeric',
             'max_price' => 'nullable|numeric',
-        ], $messages);
+        ], [
+            'category_id.integer' => 'The category ID must be an integer.',
+            'min_price.numeric' => 'The minimum price must be a numeric value.',
+            'max_price.numeric' => 'The maximum price must be a numeric value.',
+        ]);
 
-        // Check if validation fails
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first()], 400);
+            return $this->sendError($validator->errors());
         }
 
-        // Retrieve the filtering parameters from the request
-        $categouryId = $request->input('categoury_id');
-        $location = $request->input('location');
-        $minPrice = $request->input('min_price');
-        $maxPrice = $request->input('max_price');
+        // Build the filter query
+        $query = Service::query();
 
-        // Start building the query to filter services
-        $services = service::where('categoury_id', $categouryId);
-
-        // Apply location filter if provided
-        if ($location) {
-            $services->where('location', 'like', '%' . $location . '%');
+        if (!empty($request['categoury_id'])) {
+            $query->where('categoury_id', $request['categoury_id']);
         }
 
-        // Apply price filters if provided
-        if ($minPrice) {
-            $services->where('price', '>=', $minPrice);
-        }
-        if ($maxPrice) {
-            $services->where('price', '<=', $maxPrice);
+        if (isset($request['min_price']) && isset($request['max_price'])) {
+            $query->whereBetween('price', [$request['min_price'], $request['max_price']]);
         }
 
-        // Retrieve the filtered services
-        $filteredServices = $services->get();
-         // Check if the filtered services collection is empty
-         if ($filteredServices->isEmpty()) {
-            return response()->json(['message' => 'No services found .'], 200);
+        $services = $query->get();
+
+        // Check if services are found
+        if ($services->isEmpty()) {
+            return $this->sendError('No services found for the selected category and price range.');
         }
 
-        // Return the filtered services as JSON response
-        return response()->json($filteredServices);
+        return $this->sendResponse($services);
     }
+    
 }
