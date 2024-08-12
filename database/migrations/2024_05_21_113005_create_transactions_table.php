@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('balance');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_types')->onDelete('cascade');
             $table->foreign('transaction_status_id')->references('id')->on('transaction_statuses')->onDelete('cascade');
         });

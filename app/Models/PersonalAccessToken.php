@@ -10,4 +10,10 @@ class PersonalAccessToken extends Model
     use HasFactory;
 
     protected $table = "personal_access_tokens";
+
+    // Define the tokenable relationship
+    public function tokenable()
+    {
+        return $this->morphTo();
+    }
 }

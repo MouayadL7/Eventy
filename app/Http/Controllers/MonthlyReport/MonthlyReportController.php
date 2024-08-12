@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\MonthlyReport;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Client;
@@ -10,11 +11,12 @@ use App\Models\OrderState;
 use App\Models\PersonalAccessToken;
 use App\Models\Service;
 use App\Models\Sponsor;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MonthlyReportController extends Controller
+class MonthlyReportController extends BaseController
 {
     /**
      * Handle the incoming request.
@@ -42,7 +44,7 @@ class MonthlyReportController extends Controller
         $report['active_clients'] = $activeClientsCount;
 
         // 4- top client by revenue
-        $topClient = Client::select('clients.*', DB::raw('SUM(CASE WHEN transactions.transaction_status_id = 1 THEN transactions.balance ELSE 0 END) - SUM(CASE WHEN transactions.transaction_status_id = 2 THEN transactions.balance ELSE 0 END) as total_payments'))
+        $topClient = Client::select(DB::raw("CONCAT(first_name, ' ', last_name) AS name"), 'image', DB::raw('SUM(CASE WHEN transactions.transaction_status_id = 1 AND transactions.transaction_type_id = 1 THEN transactions.balance ELSE 0 END) - SUM(CASE WHEN transactions.transaction_status_id = 2 AND transactions.transaction_type_id = 1 THEN transactions.balance ELSE 0 END) as total_payments'))
             ->join('transactions', 'clients.id', '=', 'transactions.user_id')
             ->groupBy('clients.id')
             ->orderBy('total_payments', 'DESC')
@@ -50,7 +52,7 @@ class MonthlyReportController extends Controller
         $report['top_client_by_revenue'] = $topClient;
 
         // 5- top client by number of events
-        $topClient = Client::select('clients.*', DB::raw('COUNT(orders.id) as orders_count'))
+        $topClient = Client::select(DB::raw("CONCAT(first_name, ' ', last_name) AS name"), 'image', DB::raw('COUNT(orders.id) as orders_count'))
             ->join('orders', 'clients.id', '=', 'orders.client_id')
             ->groupBy('clients.id')
             ->orderBy('orders_count', 'DESC')
@@ -83,7 +85,7 @@ class MonthlyReportController extends Controller
         $report['top_sponsor_by_revenue'] = $topSponsor;
 
         // 10- top sponsor by deliverd
-        $topSponsor = Sponsor::select('sponsors.*', DB::raw('SUM(bookings.id) as bookings_count'))
+        $topSponsor = Sponsor::select('sponsors.*', DB::raw('COUNT(bookings.id) as bookings_count'))
             ->join('services', 'sponsors.service_id', '=', 'services.id')
             ->join('bookings', 'services.id', '=', 'bookings.service_id')
             ->groupBy('sponsors.id')
@@ -99,20 +101,30 @@ class MonthlyReportController extends Controller
         $weeks = [];
         $currentWeekStart = $startOfMonth->copy();
         $cnt = 1;
+
         while ($currentWeekStart->lte($endOfMonth)) {
+            // Ensure the start of the week is within this month
+            $currentWeekStart = $currentWeekStart->startOfWeek();
+
+            // Calculate the end of the week, ensuring it doesn't exceed the end of the month
             $currentWeekEnd = $currentWeekStart->copy()->endOfWeek();
 
-            // Ensure the week end does not go beyond the end of the month
+            // If the end of the week goes beyond the end of the month, limit it to the end of the month
             if ($currentWeekEnd->gt($endOfMonth)) {
                 $currentWeekEnd = $endOfMonth->copy();
             }
 
+            // Store the week and the number of events in that week
             $weeks[] = [
                 'week' => $cnt++,
                 'num_of_events' => Order::whereBetween('created_at', [$currentWeekStart, $currentWeekEnd])->count()
             ];
 
-            // Move to the next week
+            if ($cnt == 4) {
+                dd($currentWeekStart . ' ' . $currentWeekEnd);
+            }
+
+            // Move to the start of the next week
             $currentWeekStart = $currentWeekEnd->copy()->addDay();
         }
         $report['events_in_each_week'] = $weeks;
@@ -132,9 +144,9 @@ class MonthlyReportController extends Controller
         // 14- number of orders for each category
         $categoryOrders = DB::table('bookings')
             ->join('services', 'bookings.service_id', '=', 'services.id')
-            ->join('categories', 'services.category_id', '=', 'categories.id')
-            ->select('categories.name', DB::raw('COUNT(bookings.id) as total_orders'))
-            ->groupBy('categories.name')
+            ->join('categouries', 'services.categoury_id', '=', 'categouries.id')
+            ->select('categouries.name', DB::raw('COUNT(bookings.id) as total_orders'))
+            ->groupBy('categouries.name')
             ->orderBy('total_orders', 'desc')
             ->get();
         $report['number of orders for each category'] = $categoryOrders;
@@ -147,7 +159,8 @@ class MonthlyReportController extends Controller
         $averagePaymentPerOrder = DB::table('bookings')
             ->select(DB::raw('AVG(order_payment) as avg_payments_per_order'))
             ->from(DB::raw('(SELECT order_id, SUM(price) as order_payment FROM bookings GROUP BY order_id) as subquery'))
-            ->value('avg_payment_per_order');
+            ->value('avg_payments_per_order');
+        $report['avg_payments_per_order'] = $averagePaymentPerOrder == null ? 0 : $averagePaymentPerOrder;
 
         // Services
         // 17- Most requested service
@@ -156,11 +169,15 @@ class MonthlyReportController extends Controller
             ->groupBy('services.id')
             ->orderBy('service_count', 'DESC')
             ->latest(5);
+        $report['most_requested_service'] = $mostRequestedService;
 
         // 18- Average number of services per order
         $averageServicesPerOrder = DB::table('bookings')
             ->select(DB::raw('AVG(service_count) as avg_services_per_order'))
             ->from(DB::raw('(SELECT order_id, COUNT(service_id) as service_count FROM bookings GROUP BY order_id) as subquery'))
             ->value('avg_services_per_order');
+        $report['avg_services_per_order'] = $averageServicesPerOrder == null ? 0 : $averageServicesPerOrder;
+
+        return $this->sendResponse($report);
     }
 }

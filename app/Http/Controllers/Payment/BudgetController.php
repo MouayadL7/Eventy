@@ -35,7 +35,7 @@ class BudgetController extends BaseController
         $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
         $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
         Transactions::create([
-            'user_id'  => $request->user_id,
+            'user_id'  => User::find($request->user_id)->userable_id,
             'transaction_status_id' => $transaction_status->id,
             'transaction_type_id' => $transaction_type->id,
             'balance' => $request->balance,
@@ -66,7 +66,7 @@ class BudgetController extends BaseController
             $transaction_status = TransactionStatuses::query()->where('name_EN', 'complete')->first();
             $transaction_type = TransactionTypes::query()->where('name_EN', 'pay Cash')->first();
             Transactions::create([
-                'user_id'  => Auth::id(),
+                'user_id'  => auth()->user()->userable_id,
                 'transaction_status_id' => $transaction_status->id,
                 'transaction_type_id' => $transaction_type->id,
                 'balance' => $request->balance + $request->sponsor_price,
@@ -101,7 +101,7 @@ class BudgetController extends BaseController
             $transaction_status = TransactionStatuses::query()->where('name_EN', 'cancel')->first();
             $transaction_type = TransactionTypes::query()->where('name_EN', 'recieve Cash')->first();
             Transactions::create([
-                'user_id'  => Auth::id(),
+                'user_id'  => auth()->user()->userable_id,
                 'transaction_status_id' => $transaction_status->id,
                 'transaction_type_id' => $transaction_type->id,
                 'balance' => $request->balance + $request->sponsor_price,

@@ -64,11 +64,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function transactions() : HasMany
-    {
-        return $this->hasMany(Transactions::class);
-    }
-
     public function userable() : MorphTo
     {
         return $this->morphTo();
