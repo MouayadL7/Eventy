@@ -25,10 +25,11 @@ class LogoutController extends BaseController
         {
             return $this->sendError($validator->errors());
         }
-        
+
         if ($request->input('device_token')) {
             DeviceToken::query()->where('device_token', $request->device_token)->delete();
         }
+        
         $request->user()->currentAccessToken()->delete();
         return $this->sendResponse([]);
     }

@@ -19,8 +19,7 @@ class ResetPasswordController extends BaseController
 {
     public function userForgotPassword(Request $request) : JsonResponse
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
+        $validator = Validator::make($request->all(), [
             'email'=>'required|email|exists:users,email',
         ]);
 
@@ -32,12 +31,11 @@ class ResetPasswordController extends BaseController
         //Delete all old codes that user send before.
         ResetCodePassword::query()->where('email', $request['email'])->delete();
 
-
         //Generate random code
-        $data['code'] = mt_rand(100000,999999);
+        $request['code'] = mt_rand(100000,999999);
 
         //Create a new code
-        $codeData = ResetCodePassword::query()->create($data);
+        $codeData = ResetCodePassword::query()->create($request->all());
 
         //Send email to user
         Mail::to($request['email'])->send(new SendCodeResetPassword($codeData['code']));
@@ -47,23 +45,19 @@ class ResetPasswordController extends BaseController
 
     public function userCheckCode(Request $request) : JsonResponse
     {
-        $resetPasswordRequest = new ResetPasswordRequest();
-        $validator = Validator::make($request->all(), $resetPasswordRequest->rules());
+        $validator = Validator::make($request->all(), (new ResetPasswordRequest())->rules());
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors());
+        }
 
-            if ($validator->fails())
-            {
-                return $this->sendError($validator->errors());
-            }
-
-        //find the email
-        $passwordReset = ResetCodePassword::query()->firstWhere('email', $request['email']);
-
-        if ($request['code'] != $passwordReset['code'])
+        // find the email
+        $passwordReset = ResetCodePassword::query()->where('email', $request['email'])->where('code',$request['code'])->first();
+        if (is_null($passwordReset))
         {
             return $this->sendError(['error' => 'code is invalid']);
         }
 
-        //Check if it is not expired: the time is one hour
+        // Check if it is not expired: the time is one hour
         if ($passwordReset['created_at'] > now()->addHour()){
             $passwordReset->delete();
             return $this->sendError(['error' => trans('passwords.code_is_expire')]);
@@ -74,36 +68,27 @@ class ResetPasswordController extends BaseController
 
     public function userResetPassword(Request $request) : JsonResponse
     {
-        $input = $request->all();
-        $validator = Validator::make($input, [
+        // Validate the data
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:reset_code_passwords,email',
             'password' => ['required','confirmed'],
         ]);
 
-            if ($validator->fails())
-            {
-                return $this->sendError($validator->errors());
-            }
-
-        //find the email
-        $passwordReset = ResetCodePassword::query()->firstWhere('email', $request['email']);
-
-        //Check if it is not expired:the time is one Hour
-        if ($passwordReset['created_at'] > now()->addHour()){
-            $passwordReset->delete();
-            return $this->sendError(['error' => trans('passwords.code_is_expire')]);
+        if ($validator->fails())
+        {
+            return $this->sendError($validator->errors());
         }
 
-        //find user's email
-        $user = User::query()->firstWhere('email', $passwordReset['email']);
+        // delete old codes
+        ResetCodePassword::query()->where('email', $request['email'])->delete();
+
+        // find user by email
+        $user = User::query()->where('email', $request['email'])->first();
 
         //update user password
         $user ->update([
-            'password' => bcrypt($input['password']),
+            'password' => bcrypt($request['password'])
         ]);
-
-        //delete current code
-        $passwordReset->delete();
 
         return $this->sendResponse([]);
     }

@@ -120,10 +120,6 @@ class MonthlyReportController extends BaseController
                 'num_of_events' => Order::whereBetween('created_at', [$currentWeekStart, $currentWeekEnd])->count()
             ];
 
-            if ($cnt == 4) {
-                dd($currentWeekStart . ' ' . $currentWeekEnd);
-            }
-
             // Move to the start of the next week
             $currentWeekStart = $currentWeekEnd->copy()->addDay();
         }

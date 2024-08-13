@@ -17,11 +17,9 @@ class LoginController extends BaseController
 {
     public function login(Request $request) :JsonResponse
     {
-        $loginRequest = new LoginRequest();
-        $validator = Validator::make($request->all(), $loginRequest->rules($request));
-
-        if($validator->fails())
-        {
+        // Validate the data
+        $validator = Validator::make($request->all(), (new LoginRequest())->rules($request));
+        if($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
@@ -47,8 +45,6 @@ class LoginController extends BaseController
             $userable['role_id']     = $user['role_id'];
             $userable['accesstoken'] = $request->user()->createToken('access token')->plainTextToken;
             $userable['id']          = $user['id'];
-
-           // $request->user()->notify(new UserNotification('Sarah','SARSARA'));
 
             return $this->sendResponse($userable);
         }
