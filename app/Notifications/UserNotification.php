@@ -16,11 +16,10 @@ class UserNotification extends Notification implements ShouldBroadcast
     use Queueable;
 
     public $title, $body, $data;
-
-     /**
-      * Create a new notification instance.
-      */
-   public function __construct($title, $body, $data)
+    /**
+     * Create a new notification instance.
+     */
+    public function __construct($title, $body, $data)
     {
         $this->title = $title;
         $this->body  = $body;
@@ -53,7 +52,7 @@ class UserNotification extends Notification implements ShouldBroadcast
     {
         return (new FcmMessage(notification: new FcmNotification(
             title: $this->title,
-            body : $this->body
+            body : $this->body,
         )))
         ->custom([
             'android' => [

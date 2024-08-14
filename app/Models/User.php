@@ -74,7 +74,7 @@ class User extends Authenticatable
         return $this->hasMany(DeviceToken::class);
     }
 
-    public function routeNotificationForFcm($driver, $notification = null)
+    public function routeNotificationForFcm($notification = null)
     {
         return $this->deviceTokens()->pluck('device_token')->toArray();
     }
