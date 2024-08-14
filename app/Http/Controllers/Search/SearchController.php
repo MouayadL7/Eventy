@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Search;
+
+use App\Http\Controllers\BaseController;
 use App\Models\service;
 
 use Illuminate\Http\Request;
@@ -91,5 +93,5 @@ class SearchController extends BaseController
 
         return $this->sendResponse($services);
     }
-    
+
 }

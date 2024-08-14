@@ -24,9 +24,9 @@ class Transactions extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function user() : BelongsTo
+    public function client() : BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 
     public function transaction_type() : BelongsTo

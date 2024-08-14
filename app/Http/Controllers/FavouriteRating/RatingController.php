@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FavouriteRating;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Sponsor;

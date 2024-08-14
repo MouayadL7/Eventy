@@ -3,30 +3,30 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Servicecontroller;
 use App\Http\Controllers\{
-    AbroveController,
+    ApproveSponsor\AbroveController,
     Auth\LoginController,
     Auth\LogoutController,
     Auth\RegisterController,
     Auth\EmailVerificationController,
     Auth\ResetPasswordController,
-    CartController,
-    CategouryController,
-    ConversationController,
-    FavouriteController,
-    MessageController,
-    OrderController,
-    OrderStateController,
-    RatingController,
-    SearchController,
+    Order\CartController,
+    Order\CategouryController,
+    Chat\ConversationController,
+    FavouriteRating\FavouriteController,
+    Chat\MessageController,
+    Order\OrderController,
+    Order\OrderStateController,
+    FavouriteRating\RatingController,
+    Search\SearchController,
+    Order\ServiceController
 };
+use App\Http\Controllers\MonthlyReport\MonthlyReportController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Payment\BudgetController;
 use App\Http\Controllers\Payment\TransactionsController;
 use App\Http\Controllers\Report\ReportsController;
 use App\Http\Controllers\User\UserController;
-use App\Models\service;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +68,7 @@ Route::middleware('auth:sanctum')->group (function(){
     // Profile
     Route::get('user/profile', [UserController::class, 'get_profile']);
 
+    // Chat
     Route::prefix('conversation')->group(function () {
         Route::get('', [ConversationController::class, 'index']);
         Route::get('{id}', [ConversationController::class, 'show']);
@@ -94,6 +95,9 @@ Route::middleware('auth:sanctum')->group (function(){
     });
 
     Route::middleware(['auth:sanctum', 'can:isAdministrator'])->group(function() {
+        // MonthlyReport
+        Route::get('monthly_report', MonthlyReportController::class);
+
         // Report
         Route::post('report/reply', [ReportsController::class, 'reply']);
         Route::get('report/newReports', [ReportsController::class, 'newReports']);
@@ -103,7 +107,7 @@ Route::middleware('auth:sanctum')->group (function(){
         Route::get('budget/charge/search', [BudgetController::class, 'search']);
 
         //Add Servic
-        Route::post('add', [Servicecontroller::class, 'addservice']);
+        Route::post('add', [ServiceController::class, 'addservice']);
 
         // Abrove
         Route::prefix('abrove')->group(function () {

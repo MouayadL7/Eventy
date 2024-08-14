@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FavouriteRating;
 
 use App\Http\Controllers\BaseController;
- use App\Models\Favourite;
- use Illuminate\Http\Request;
+use App\Models\Favourite;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 

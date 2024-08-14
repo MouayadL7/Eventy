@@ -22,20 +22,24 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
 {
+    /**
+     * to register the user in app
+     */
     public function register(Request $request) :JsonResponse
     {
         $input = $request->all();
         if ($input['is_client'])
         {
-            $registerRequest = new RegisterClientRequest();
-            $validator = Validator::make($input, $registerRequest->rules());
-
-            if ($validator->fails())
-            {
+            // Validate the data
+            $validator = Validator::make($input, (new RegisterClientRequest())->rules());
+            if ($validator->fails()) {
                 return $this->sendError($validator->errors());
             }
 
+            // Hashing password
             $input['password'] = Hash::make($input['password']);
+
+            // Assign role_id to the client
             $input['role_id']  = Role::ROLE_CLIENT ;
 
             $user = User::create($input);
@@ -49,6 +53,7 @@ class RegisterController extends BaseController
                 'gender'        =>  $input['gender'],
                 'image'         =>  $input['image'],
             ]));
+
             // Create a cart for the client
             $cart = new Cart();
             $cart->client_id = Client::get()->last()->id;
@@ -56,15 +61,16 @@ class RegisterController extends BaseController
         }
         else
         {
-            $registerRequest = new RegisterSponsorRequest();
-            $validator = Validator::make($input, $registerRequest->rules());
-
-            if ($validator->fails())
-            {
+            // validate the data
+            $validator = Validator::make($input, (new RegisterSponsorRequest())->rules());
+            if ($validator->fails()) {
                 return $this->sendError($validator->errors());
             }
 
+            // Hashing password
             $input['password'] = Hash::make($input['password']);
+
+            // Assign role_id to the sponsor
             $input['role_id']  = $input['is_sponsor'] = Role::ROLE_SPONSOR;
 
             $user = User::create($input);
@@ -77,9 +83,10 @@ class RegisterController extends BaseController
                 'image'           => $input['image'],
                 'work_experience' => $input['work_experience'],
                 'location'        => $input['location'],
-                
+
             ]));
 
+            // In order for the admin to approve it in the application
             Abrove::create([
                 'sponsor_id' => $response->getData()->data->id,
                 'price'      => $request->price
@@ -88,6 +95,9 @@ class RegisterController extends BaseController
         return $response;
     }
 
+    /**
+     * to store image in files, and get the path.
+     */
     public function getImage($request, $type)
     {
         $user_image = "";
@@ -114,13 +124,15 @@ class RegisterController extends BaseController
         $specified_user_data['role_id'] = $user['role_id'];
         $specified_user_data['id'] = $user['id'];
 
-        // just to create Budget
+        // create Budget
         Budget::create([
             'user_id' => $user->id,
         ]);
 
-        // just to send email verification
+        // send email verification
         event(new EmailVerification($user->email));
+
+        // to delete user's account after one day if is not verified
         DeleteAccount::dispatch($user)->delay(84600);
 
         return $this->sendResponse($specified_user_data);

@@ -23,6 +23,7 @@ class ReportsController extends BaseController
     public function index()
     {
         $reports = Reports::all();
+        $reports = $reports->sortByDesc('created_at');
         return $this->sendResponse($reports);
     }
 
@@ -39,11 +40,9 @@ class ReportsController extends BaseController
      */
     public function store(Request $request)
     {
-        $StoreReportRequest = new  StoreReportRequest();
-        $validator = Validator::make($request->all(), $StoreReportRequest->rules());
-
-        if ($validator->fails())
-        {
+        // Validate the data
+        $validator = Validator::make($request->all(), (new StoreReportRequest())->rules());
+        if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
@@ -101,11 +100,9 @@ class ReportsController extends BaseController
 
     public function reply(Request $request)
     {
-        $replyReportRequest = new replyReportRequest();
-        $validator = Validator::make($request->all(),$replyReportRequest->rules());
-
-        if ($validator->fails())
-        {
+        // Validate the data
+        $validator = Validator::make($request->all(),(new replyReportRequest())->rules());
+        if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
 
@@ -115,12 +112,17 @@ class ReportsController extends BaseController
         ];
 
         $report = Reports::find($request->report_id);
+
+        // make the report is read
         $report->update([
             'read_at' => Carbon::now()
         ]);
 
         $user = User::find($report->user_id);
+
+        // send email to user
         Mail::to($user->email)->send(new AdminReply($reply));
+
         return $this->sendResponse();
     }
 

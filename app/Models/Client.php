@@ -25,6 +25,11 @@ class Client extends Model
         return $this->morphOne(User::class , 'userable');
     }
 
+    public function transactions() : HasMany
+    {
+        return $this->hasMany(Transactions::class, 'user_id');
+    }
+
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class, 'client_id');

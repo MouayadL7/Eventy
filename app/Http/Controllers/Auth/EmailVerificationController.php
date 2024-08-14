@@ -27,9 +27,8 @@ class EmailVerificationController extends BaseController
         }
 
         // find the code
-        $emailverification = EmailVerification::query()->firstWhere('email', $request['email']);
-
-        if ($request['code'] != $emailverification['code'])
+        $emailverification = EmailVerification::query()->where('email', $request['email'])->where('code', $request['code'])->first();
+        if (is_null($emailverification))
         {
             return $this->sendError(['error' => trans('Code is not valid')]);
         }
@@ -40,7 +39,7 @@ class EmailVerificationController extends BaseController
             return $this->sendError(['error' => trans('password.code_is_expire')]);
         }
 
-        // find user's email
+        // find user by email
         $user = User::query()->where('email', $emailverification['email']);
 
         // update user email_verified
