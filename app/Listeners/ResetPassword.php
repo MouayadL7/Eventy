@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Mail\ResetPassword as MailResetPassword;
+use App\Mail\SendCodeResetPassword;
 use App\Models\ResetCodePassword;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,6 +36,6 @@ class ResetPassword
         $codeData = ResetCodePassword::query()->create($data);
 
         //Send email to user
-        Mail::to($event->email)->send(new MailResetPassword($codeData['code']));
+        Mail::to($event->email)->send(new SendCodeResetPassword($codeData['code']));
     }
 }

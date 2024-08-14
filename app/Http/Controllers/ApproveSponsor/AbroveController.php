@@ -23,7 +23,7 @@ class AbroveController extends BaseController
     {
         $abroves = DB::table('abroves')
                     ->join('users', 'abroves.sponsor_id', '=', 'users.id')
-                    ->whereRaw('users.email_verified = ?', [1])
+                    ->whereRaw('users.email_verified = 1')
                     ->join('sponsors', 'users.userable_id', '=', 'sponsors.id')
                     ->select('abroves.id', 'first_name', 'last_name', 'email', 'phone', 'work_experience', 'location', 'price', 'image', 'abroves.created_at as date')
                     ->get();
