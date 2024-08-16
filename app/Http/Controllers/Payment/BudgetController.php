@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreBudgetRequest;
+use App\Models\Booking;
 use App\Models\Budget;
+use App\Models\Categoury;
+use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\Transactions;
 use App\Models\TransactionStatuses;
@@ -139,5 +142,20 @@ class BudgetController extends BaseController
                     ->get();
 
         return $this->sendResponse($users);
+    }
+
+    public function get_payment()
+    {
+        $service = Service::find(request('service_id'));
+        if ($service->categoury_id == Categoury::CATEGOURY_ORGANIZER) {
+            $sponsorId = Sponsor::where('service_id', $service->id)->first();
+            $userId = User::where('userable_id', $sponsorId)->where('userable_type', Sponsor::class)->first();
+            $budget = Budget::where('user_id', $userId)->first();
+            return $this->sendResponse(['balance' => $budget->balance]);
+        }
+        else {
+            $total_payment = Booking::query()->where('service_id', request('service_id'))->sum('price');
+            return $this->sendResponse(['balance' => $total_payment]);
+        }
     }
 }

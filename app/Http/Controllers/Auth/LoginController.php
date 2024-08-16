@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\LoginRequest;
+use App\Models\Abrove;
 use App\Models\DeviceToken;
 use App\Notifications\UserNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,6 +31,12 @@ class LoginController extends BaseController
             if(!$user['email_verified'])
             {
                 return $this->sendError(['error' => 'email is not verified']);
+            }
+
+            if ($user->role_id == 3) {
+                if (Abrove::where('sponsor_id', $user->id)->exists()) {
+                    return $this->sendError('This sponsor is not approved');
+                }
             }
 
             if ($request->is_client)
