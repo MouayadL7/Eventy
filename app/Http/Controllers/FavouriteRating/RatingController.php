@@ -27,13 +27,17 @@ class RatingController extends BaseController
         $sponsor = User::find($request->sponsor_id)->userable;
 
         if ($client->hasRated($sponsor->id)) {
-            return $this->sendError('You cannot rate the same person again');
+            return $this->sendError('You can not rate the same person again');
         }
 
         $rate = Rating::create([
             'client_id' => $client->id,
             'sponsor_id' => $sponsor->id,
             'rating' => $request->rating
+        ]);
+
+        $sponsor->service->update([
+            'rating' => $sponsor->averageRating()
         ]);
 
         return $this->sponsorRate($request->sponsor_id);

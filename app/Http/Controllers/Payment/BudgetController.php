@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreBudgetRequest;
 use App\Models\Budget;
+use App\Models\Sponsor;
 use App\Models\Transactions;
 use App\Models\TransactionStatuses;
 use App\Models\TransactionTypes;
@@ -131,8 +132,9 @@ class BudgetController extends BaseController
     {
         $search = request('name');
         $users  = DB::table('users')
-                    ->join('clients', 'users.id', '=', 'clients.id')
+                    ->join('clients', 'users.userable_id', '=', 'clients.id')
                     ->select('users.id', DB::raw("CONCAT(first_name, ' ', last_name) AS name"), 'image')
+                    ->where('userable_type', '<>', Sponsor::class)
                     ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'REGEXP', $search)
                     ->get();
 

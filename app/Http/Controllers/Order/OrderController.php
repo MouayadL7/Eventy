@@ -124,6 +124,11 @@ class OrderController extends BaseController
                 $item->delete();
             }
 
+            if (is_null($sponsor)) {
+                DB::rollBack();
+                return $this->sendError('You must add sponsor to your order');
+            }
+
             $request = new Request();
             $request['balance'] = $total_price;
             $request['sponsor_price'] = $sponsor_price;
